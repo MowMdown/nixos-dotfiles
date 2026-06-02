@@ -47,6 +47,14 @@
 
     flatpak.enable = true;
     fstrim.enable = true;
+
+    hydra = {
+      enable = true;
+      hydraURL = "http://localhost:3000";
+      notificationSender = "hydra@localhost";
+      useSubstitutes = true;
+    };
+    
     lact.enable = true;
     libinput.enable = true;
     printing.enable = true;
