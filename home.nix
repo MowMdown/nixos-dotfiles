@@ -46,8 +46,8 @@ in
 
     shellAliases = {
       ff = "clear && fastfetch";
-      nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#$(hostname)";
-      nix-test = "sudo nixos-rebuild test --flake ~/nixos-dotfiles#$(hostname)";
+      nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#$HOSTNAME";
+      nix-test = "sudo nixos-rebuild test --flake ~/nixos-dotfiles#$HOSTNAME";
     };
   };
 }
