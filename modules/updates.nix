@@ -2,10 +2,7 @@
   system.autoUpgrade = {
     enable = true;
     flake = "~/nixos-dotfiles#$HOSTNAME";
-    flags =[
-      "--update-input" "nixpkgs"
-      "--update-input" "home-manager"
-    ];
+    flags =[ "--print-build-logs" ];
     dates = "04:00";
     randomizedDelaySec = "15m";
     allowReboot = true;
