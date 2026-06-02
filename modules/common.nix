@@ -4,6 +4,7 @@
   boot.loader = {
     limine = {
       enable = true;
+      label = "NixOS Linux";
       maxGenerations = 5;
     };
 
