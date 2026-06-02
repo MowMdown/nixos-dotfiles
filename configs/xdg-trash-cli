@@ -1,0 +1,154 @@
+cp() {
+    rsync -ah --progress --stats "$@"
+}
+
+mv() {
+    rsync -ah --progress "$@"
+    if [ $? -eq 0 ]; then
+        read -p "Move complete. Delete source '$1'? [y/N] " confirm
+        if [[ "$confirm" =~ ^[Yy]$ ]]; then
+            rm -rf "$1"
+            echo "Source deleted."
+        else
+            echo "Source kept."
+        fi
+    else
+        echo "Transfer failed. Source not deleted."
+    fi
+}
+
+del() {
+    local TRASH_FILES="$HOME/.local/share/Trash/files"
+    local TRASH_INFO="$HOME/.local/share/Trash/info"
+    mkdir -p "$TRASH_FILES" "$TRASH_INFO"
+    for file in "$@"; do
+        [[ "$file" == -* ]] && continue
+        if [[ ! -e "$file" ]]; then
+            echo "del: '$file': No such file or directory"
+            continue
+        fi
+        local base dest infofile
+        base=$(basename "$file")
+        dest="$TRASH_FILES/$base"
+        infofile="$TRASH_INFO/${base}.trashinfo"
+        if [[ -e "$dest" || -e "$infofile" ]]; then
+            local ts; ts=$(date +%Y%m%d%H%M%S)
+            dest="$TRASH_FILES/${base}_${ts}"
+            infofile="$TRASH_INFO/${base}_${ts}.trashinfo"
+        fi
+        printf '[Trash Info]\nPath=%s\nDeletionDate=%s\n' \
+            "$(realpath "$file")" "$(date +%Y-%m-%dT%H:%M:%S)" > "$infofile"
+        command mv "$file" "$dest"
+        echo "Trashed: $file"
+    done
+}
+
+trash-url-decode() {
+    python3 -c "import sys, urllib.parse; print(urllib.parse.unquote(sys.argv[1]), end='')" "$1"
+}
+
+trash-list() {
+    local TRASH_INFO="$HOME/.local/share/Trash/info"
+    local infofiles=("$TRASH_INFO"/*.trashinfo)
+    if [[ ! -e "${infofiles[0]}" ]]; then
+        echo "Trash is empty."
+        return
+    fi
+    local name_w=30 path_w=45
+    truncate_str() {
+        local str="$1" max="$2"
+        (( ${#str} > max )) && printf "%s…" "${str:0:max-1}" || printf "%s" "$str"
+    }
+    printf "%-${name_w}s %-${path_w}s %s\n" "NAME" "ORIGINAL PATH" "DELETED"
+    printf "%-${name_w}s %-${path_w}s %s\n" "----" "-------------" "-------"
+    for infofile in "${infofiles[@]}"; do
+        local name original date line
+        name=$(basename "$infofile" .trashinfo)
+        while IFS= read -r line; do
+            case "$line" in
+                Path=*) original=${line#Path=} ;;
+                DeletionDate=*) date=${line#DeletionDate=} ;;
+            esac
+        done < "$infofile"
+        original=$(trash-url-decode "$original")
+        printf "%-${name_w}s %-${path_w}s %s\n" \
+            "$(truncate_str "$name" "$name_w")" \
+            "$(truncate_str "$original" "$path_w")" \
+            "$date"
+    done
+}
+
+trash-restore() {
+    local TRASH_FILES="$HOME/.local/share/Trash/files"
+    local TRASH_INFO="$HOME/.local/share/Trash/info"
+    local infofiles=("$TRASH_INFO"/*.trashinfo)
+    if [[ ! -e "${infofiles[0]}" ]]; then
+        echo "Trash is empty."
+        return 1
+    fi
+    local -a originals infos
+    local i=1
+    for infofile in "${infofiles[@]}"; do
+        local original line
+        while IFS= read -r line; do
+            [[ $line == Path=* ]] && original=${line#Path=}
+        done < "$infofile"
+        originals[i]=$(trash-url-decode "$original")
+        infos[i]="$infofile"
+        echo "$i) ${originals[i]}"
+        (( i++ ))
+    done
+    restore_one() {
+        local idx="$1" name src
+        name=$(basename "${infos[$idx]}" .trashinfo)
+        src="$TRASH_FILES/$name"
+        if [[ ! -e "$src" ]]; then
+            echo "restore: '$name': File missing from trash"
+            return 1
+        fi
+        mkdir -p -- "$(dirname -- "${originals[$idx]}")"
+        command mv -- "$src" "${originals[$idx]}"
+        command rm -f -- "${infos[$idx]}"
+        echo "Restored: ${originals[$idx]}"
+    }
+    local reply
+    while true; do
+        read -r -p "Restore all? [y/N] " reply
+        case "$reply" in
+            [Yy]) for (( i=1; i<${#originals[@]}+1; i++ )); do restore_one "$i"; done; return 0 ;;
+            [Nn]|"") break ;;
+            *) echo "Please enter y or n." ;;
+        esac
+    done
+    local choice
+    while true; do
+        read -r -p "Restore which? (number): " choice
+        [[ "$choice" =~ ^[0-9]+$ ]] && { restore_one "$choice"; return; }
+        echo "Please enter a number."
+    done
+}
+
+trash-empty() {
+    local TRASH_FILES="$HOME/.local/share/Trash/files"
+    local TRASH_INFO="$HOME/.local/share/Trash/info"
+    local infofiles=("$TRASH_INFO"/*.trashinfo)
+    if [[ ! -e "${infofiles[0]}" ]]; then
+        echo "Trash is empty."
+        return
+    fi
+    local removed=0
+    for infofile in "${infofiles[@]}"; do
+        local name="$(basename "$infofile" .trashinfo)" reply
+        while true; do
+            read -r -p "Remove '$name'? [y/N] " reply
+            case "$reply" in
+                [Yy]) rm -rf -- "$TRASH_FILES/$name"; rm -f -- "$infofile"; (( removed++ )); break ;;
+                [Nn]|"") break ;;
+                *) echo "Please enter y or n." ;;
+            esac
+        done
+    done
+    echo "Removed: $removed item(s)"
+}
+
+

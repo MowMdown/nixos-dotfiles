@@ -41,7 +41,7 @@ in
 
   programs.bash = {
     enable = true;
-    initExtra = builtins.readFile ./xdg-trash-cli;
+    initExtra = builtins.readFile ./configs/xdg-trash-cli;
 
     shellAliases = {
       ff = "clear && fastfetch";
