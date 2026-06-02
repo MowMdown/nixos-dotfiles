@@ -45,6 +45,7 @@
     };
 
     flatpak.enable = true;
+    fstrim.enable = true;
     lact.enable = true;
     libinput.enable = true;
     printing.enable = true;
