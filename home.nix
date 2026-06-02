@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  secrets = import ../secrets.nix;
+  secrets = import ./secrets.nix;
 in
 {
   home = {
@@ -29,8 +29,8 @@ in
     enable = true;
     settings = {
       user = {
-        name = "secrets.gitUser";
-        email = "secrets.gitEmail";
+        name = secrets.gitUser;
+        email = secrets.gitEmail;
       };
     };
   };
