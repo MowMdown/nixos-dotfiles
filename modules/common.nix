@@ -33,6 +33,8 @@
     mode = "0755";
   };
 
+  hardware.openrazer.enable = true;
+  
   services = {
     desktopManager.plasma6.enable = true;
     displayManager.plasma-login-manager.enable = true;
@@ -56,9 +58,6 @@
     openssh.enable = true;
 
     tailscale.enable = true;
-
-    # FIXED: correct placement
-    openrazer.enable = true;
   };
 
   users.users.ryan = {
