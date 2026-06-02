@@ -27,10 +27,11 @@ in
 
   programs.git = {
     enable = true;
-
     settings = {
-      user.name = secrets.gitUser;
-      user.email = secrets.gitEmail;
+      user = {
+        name = "secrets.gitUser";
+        email = "secrets.gitEmail";
+      };
     };
   };
 
