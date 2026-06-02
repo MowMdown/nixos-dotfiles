@@ -4,6 +4,7 @@
     ./tailscale.nix
     ../../modules/common.nix
     ../../modules/nvidia.nix
+    ../../modules/updates.nix
   ];
 
   networking.hostName = "laptop";
