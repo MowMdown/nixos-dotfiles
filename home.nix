@@ -1,3 +1,4 @@
+
 { config, pkgs, ... }:
 
 let
@@ -27,11 +28,9 @@ in
 
   programs.git = {
     enable = true;
-    settings = {
-      user = {
-        name = secrets.gitUser;
-        email = secrets.gitEmail;
-      };
+    settings.user = {
+      name = secrets.gitUser;
+      email = secrets.gitEmail;
     };
   };
 
