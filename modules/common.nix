@@ -4,8 +4,8 @@
   boot.loader = {
     limine = {
       enable = true;
-      label = "NixOS Linux";
       maxGenerations = 5;
+      resolution = "1920x1080x32";
     };
 
     efi.canTouchEfiVariables = true;
