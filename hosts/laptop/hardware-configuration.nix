@@ -48,16 +48,7 @@ in
     size = 16384;
   }];
 
-  hardware = {
-    firmware = [ pkgs.wireless-regdb ];
-    graphics.enable = true;
-    nvidia = {
-      open = true;
-      prime.offload.enable = true;
-      prime.nvidiaBusId = "PCI:1@0:0:0";
-      prime.amdgpuBusId = "PCI:5@0:0:0";
-    };
-  };
+  hardware.firmware = [ pkgs.wireless-regdb ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
