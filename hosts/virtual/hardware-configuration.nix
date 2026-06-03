@@ -1,55 +1,62 @@
 { config, lib, pkgs, modulesPath, ... }:
 
+let
+  NIX  = "/dev/disk/by-label/NIX";
+  EFI  = "/dev/disk/by-label/EFI";
+  SWAP = "/dev/disk/by-label/SWAP";
+in
 {
-  imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
+  imports = [ 
+    (modulesPath + "/profiles/qemu-guest.nix")
     ];
-
+  
   boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "sr_mod" "virtio_blk" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/NIX";
+  fileSystems = {
+    "/" = {
+      device = NIX;
       fsType = "btrfs";
       options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@" ];
     };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-label/NIX";
+    "/home" = {
+      device = NIX;
       fsType = "btrfs";
       options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@home" ];
     };
 
-  fileSystems."/var/tmp" =
-    { device = "/dev/disk/by-label/NIX";
+    "/var/tmp" = {
+      device = NIX;
       fsType = "btrfs";
       options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@tmp" ];
     };
 
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-label/NIX";
+    "/var/log" = {
+      device = NIX;
       fsType = "btrfs";
       options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@log" ];
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/EFI";
+    "/boot" = {
+      device = EFI;
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
+  };
 
-  swapDevices = [{
-    device = "/dev/disk/by-label/SWAP";
-    options = [ "discard" ];
-  }];
+  swapDevices = [
+    {
+      device = SWAP;
+      options = [ "discard" ];
+    }
+  ];
 
-  hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
