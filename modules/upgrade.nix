@@ -1,7 +1,7 @@
 {
   environment.etc."gitconfig".text = ''
   [safe]
-      directory = /home/ryan/nixos-dotfiles
+    directory = /home/ryan/nixos-dotfiles
   '';
 
   system.autoUpgrade = {
