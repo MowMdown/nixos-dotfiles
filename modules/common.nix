@@ -1,8 +1,10 @@
 { config, pkgs, lib, ... }:
 {
-  boot.loader.limine.enable = true;
-  boot.loader.limine.maxGenerations = 5;
-  boot.loader.limine.resolution = "1920x1080x32";
+  boot.loader.limine ={
+    enable = true;
+    maxGenerations = 5;
+    resolution = "1920x1080x32";
+  };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
@@ -11,9 +13,11 @@
     "zswap.max_pool_percent=50"
   ];
 
-  networking.networkmanager.enable = true;
-  networking.nftables.enable = true;
-  networking.firewall.enable = true;
+  networking = {
+    networkmanager.enable = true;
+    nftables.enable = true;
+    firewall.enable = true;
+  };
 
   time.timeZone = "America/New_York";
 
@@ -23,10 +27,12 @@
   services.displayManager.plasma-login-manager.enable = true;
   services.flatpak.enable = true;
   services.fstrim.enable = true;
-  services.hydra.enable = true;
-  services.hydra.hydraURL = "http://localhost:3000";
-  services.hydra.notificationSender = "hydra@localhost";
-  services.hydra.useSubstitutes = true;
+  services.hydra = {
+    enable = true;
+    hydraURL = "http://localhost:3000";
+    notificationSender = "hydra@localhost";
+    useSubstitutes = true;
+  };
   services.lact.enable = true;
   services.libinput.enable = true;
   services.openssh.enable = true;
@@ -38,10 +44,12 @@
 
   programs._1password-gui.enable = true;
   programs._1password-gui.polkitPolicyOwners = [ "ryan" ];
-  programs.steam.enable = true;
-  programs.steam.remotePlay.openFirewall = true;
-  programs.steam.dedicatedServer.openFirewall = true;
-
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
+  
   users.users.ryan.isNormalUser = true;
   users.users.ryan.extraGroups = [ "wheel" "audio" "video" "plugdev" "storage" "openrazer" ];
 
@@ -64,9 +72,11 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
-  nix.gc.automatic = true;
-  nix.gc.dates = "weekly";
-  nix.gc.options = "--delete-older-than 7d";
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.warn-dirty = false;
 
