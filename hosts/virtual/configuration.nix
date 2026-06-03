@@ -4,7 +4,6 @@
     ./tailscale.nix
     ../../modules/common.nix
     ../../modules/upgrade.nix
-    ../../modules/neovim.nix
     ../../modules/vm.nix
   ];
 

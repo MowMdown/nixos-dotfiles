@@ -4,11 +4,12 @@
     ./tailscale.nix
     ../../modules/common.nix
     ../../modules/upgrade.nix
-    ../../modules/neovim.nix
     ../../modules/nvidia.nix
   ];
 
   networking.hostName = "laptop";
+
+  hardware.openrazer.enable = true;
 
   boot.loader.limine.extraEntries = ''
     /Gentoo Linux

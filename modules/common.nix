@@ -33,8 +33,6 @@
     '';
     mode = "0755";
   };
-
-  hardware.openrazer.enable = true;
   
   services = {
     desktopManager.plasma6.enable = true;

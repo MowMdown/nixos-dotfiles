@@ -1,27 +1,19 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   secrets = import ./secrets.nix;
-  dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
-  create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
-  configs = {
-      nvim = "nvim";
-  };
 in
 
 {
+  imports = [
+    ./modules/neovim.nix
+  ];
+
   home = {
     username = "ryan";
     homeDirectory = "/home/ryan";
     stateVersion = "26.05";
   };
-
-  nixpkgs.config.allowUnfree = true;
-
-  xdg.configFile = builtins.mapAttrs (name: subpath: {
-    source = create_symlink "${dotfiles}/${subpath}";
-    recursive = true;
-    }) configs;
 
   home.packages = with pkgs; [
     discord
@@ -29,7 +21,6 @@ in
     gpu-screen-recorder-gtk
     kdePackages.kcalc
     nextcloud-client
-    neovim
     onlyoffice-desktopeditors
     protonplus
     tree

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ...}
+{ config, pkgs, lib, ... }:
 
 {
   home.packages = with pkgs; [
@@ -14,12 +14,5 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
-
-    # optional: To manage your plugins with nix, instead of with lazy.nvim,
-    # plugins = with pkgs.vimPlugins; [
-    #     telescope-nvim
-    #     nvim-treesitter
-    #     nvim-lspconfig
-    # ];
   };
 }
