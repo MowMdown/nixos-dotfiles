@@ -1,23 +1,21 @@
 { config, pkgs, lib, ... }:
-
 {
-  boot.loader = {
-    limine = {
-      enable = true;
-      maxGenerations = 5;
-      resolution = "1920x1080x32";
+  boot = {
+    loader = {
+      limine = {
+        enable = true;
+        maxGenerations = 5;
+        resolution = "1920x1080x32";
+      };
+      efi.canTouchEfiVariables = true;
     };
-
-    efi.canTouchEfiVariables = true;
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [
+      "zswap.enabled=1"
+      "zswap.compressor=zstd"
+      "zswap.max_pool_percent=50"
+    ];
   };
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  boot.kernelParams = [
-    "zswap.enabled=1"
-    "zswap.compressor=zstd"
-    "zswap.max_pool_percent=50"
-  ];
 
   networking = {
     networkmanager.enable = true;
@@ -27,96 +25,83 @@
 
   time.timeZone = "America/New_York";
 
-  environment.etc."1password/custom_allowed_browsers" = {
-    text = ''
-      firefox
-    '';
-    mode = "0755";
-  };
-  
   services = {
-    desktopManager.plasma6.enable = true;
-    displayManager.plasma-login-manager.enable = true;
-
     avahi = {
       enable = true;
       nssmdns4 = true;
     };
-
+    desktopManager.plasma6.enable = true;
+    displayManager.plasma-login-manager.enable = true;
     flatpak.enable = true;
     fstrim.enable = true;
-
     hydra = {
       enable = true;
       hydraURL = "http://localhost:3000";
       notificationSender = "hydra@localhost";
       useSubstitutes = true;
     };
-    
     lact.enable = true;
     libinput.enable = true;
-    printing.enable = true;
-
+    openssh.enable = true;
     pipewire = {
       enable = true;
       pulse.enable = true;
     };
-
     power-profiles-daemon.enable = true;
-    openssh.enable = true;
-
+    printing.enable = true;
     tailscale.enable = true;
+  };
+
+  programs = {
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "ryan" ];
+    };
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+    };
   };
 
   users.users.ryan = {
     isNormalUser = true;
-
-    extraGroups = [
-      "wheel"
-      "audio"
-      "video"
-      "plugdev"
-      "storage"
-      "openrazer"
-    ];
+    extraGroups = [ "wheel" "audio" "video" "plugdev" "storage" "openrazer" ];
   };
 
-  nixpkgs.config.allowUnfree = true;
-
-  environment.systemPackages = with pkgs; [
-    _1password-gui
-    alsa-utils
-    ethtool
-    lact
-    openlinkhub
-    openrazer-daemon
-    steam-run
-  ];
+  environment = {
+    etc."1password/custom_allowed_browsers" = {
+      text = ''
+        firefox
+      '';
+      mode = "0755";
+    };
+    systemPackages = with pkgs; [
+      _1password-gui
+      alsa-utils
+      ethtool
+      lact
+      openlinkhub
+      openrazer-daemon
+      steam-run
+    ];
+  };
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
-
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ "ryan" ];
-  };
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
-  };
-
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    warn-dirty = false;
+  nixpkgs.config.allowUnfree = true;
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      warn-dirty = false;
+    };
   };
 
   system.stateVersion = "26.05";
