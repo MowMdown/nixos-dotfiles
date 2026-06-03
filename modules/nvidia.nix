@@ -6,12 +6,11 @@
 
   hardware = {
     graphics.enable = true;
-
-    nvidia.open = true;
-    nvidia.prime = {
-      offload.enable = true;
-      nvidiaBusId = "PCI:1@0:0:0";
-      amdgpuBusId = "PCI:5@0:0:0";
+    nvidia = {
+      open = true;
+      prime.offload.enable = true;
+      prime.nvidiaBusId = "PCI:1@0:0:0";
+      prime.amdgpuBusId = "PCI:5@0:0:0";
     };
   };
 }
