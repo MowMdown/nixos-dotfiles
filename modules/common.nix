@@ -99,11 +99,6 @@
     nerd-fonts.jetbrains-mono
   ];
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;

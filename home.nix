@@ -2,7 +2,13 @@
 
 let
   secrets = import ./secrets.nix;
+  dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
+  create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
+  configs = {
+      nvim = "nvim";
+  };
 in
+
 {
   home = {
     username = "ryan";
@@ -12,12 +18,18 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  xdg.configFile = builtins.mapAttrs (name: subpath: {
+    source = create_symlink "${dotfiles}/${subpath}";
+    recursive = true;
+    }) configs;
+
   home.packages = with pkgs; [
     discord
     fastfetch
     gpu-screen-recorder-gtk
     kdePackages.kcalc
     nextcloud-client
+    neovim
     onlyoffice-desktopeditors
     protonplus
     tree
@@ -41,7 +53,6 @@ in
   programs.bash = {
     enable = true;
     initExtra = builtins.readFile ./configs/xdg-trash-cli;
-
     shellAliases = {
       ff = "clear && fastfetch";
       nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#$HOSTNAME";
