@@ -99,6 +99,11 @@
     nerd-fonts.jetbrains-mono
   ];
 
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -116,10 +121,10 @@
     options = "--delete-older-than 7d";
   };
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    warn-dirty = false;
+  };
 
   system.stateVersion = "26.05";
 }
