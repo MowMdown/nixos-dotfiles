@@ -9,6 +9,13 @@ in
     ./modules/neovim.nix
   ];
 
+  home.activation.linkConfigs = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    for dir in /home/ryan/nixos-dotfiles/config/*/; do
+      name=$(basename "$dir")
+      ln -sfn "$dir" $HOME/.config/"$name"
+    done
+  '';
+
   home = {
     username = "ryan";
     homeDirectory = "/home/ryan";
@@ -43,7 +50,7 @@ in
 
   programs.bash = {
     enable = true;
-    initExtra = builtins.readFile ./configs/xdg-trash-cli;
+    initExtra = builtins.readFile ./config/xdg-trash-cli;
     shellAliases = {
       ff = "clear && fastfetch";
       nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#$HOSTNAME";

@@ -1,7 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
+    neovim
     ripgrep
     fd
     fzf
@@ -11,7 +12,6 @@
   ];
 
   programs.neovim = {
-    enable = true;
     viAlias = true;
     vimAlias = true;
   };
