@@ -14,5 +14,11 @@
   programs.neovim = {
     viAlias = true;
     vimAlias = true;
+
+    #plugins = with pkgs.vimPlugins; [
+    #  telescope-nvim
+    #  nvim-treesitter
+    #  nvim-lspconfig
+    #];
   };
 }
