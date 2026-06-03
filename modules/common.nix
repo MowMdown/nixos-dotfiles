@@ -50,8 +50,10 @@
     dedicatedServer.openFirewall = true;
   };
   
-  users.users.ryan.isNormalUser = true;
-  users.users.ryan.extraGroups = [ "wheel" "audio" "video" "plugdev" "storage" "openrazer" ];
+  users.users.ryan = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "audio" "video" "plugdev" "storage" "openrazer" ];
+  };
 
   environment.etc."1password/custom_allowed_browsers".text = ''
     firefox
