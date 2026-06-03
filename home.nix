@@ -2,6 +2,11 @@
 
 let
   secrets = import ./secrets.nix;
+  dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
+  create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
+  configs = {
+      nvim = "nvim";
+    };
 in
 
 {
@@ -9,18 +14,16 @@ in
     ./modules/neovim.nix
   ];
 
-  home.activation.linkConfigs = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    for dir in /home/ryan/nixos-dotfiles/config/*/; do
-      name=$(basename "$dir")
-      ln -sfn "$dir" $HOME/.config/"$name"
-    done
-  '';
-
   home = {
     username = "ryan";
     homeDirectory = "/home/ryan";
     stateVersion = "26.05";
   };
+
+  xdg.configFile = builtins.mapAttrs (name: subpath: {
+    source = create_symlink "${dotfiles}/${subpath}";
+    recursive = true;
+  }) configs;
 
   home.packages = with pkgs; [
     discord
