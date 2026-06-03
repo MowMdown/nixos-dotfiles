@@ -20,30 +20,34 @@
   };
 
   time.timeZone = "America/New_York";
-
-  services.avahi.enable = true;
-  services.avahi.nssmdns4 = true;
-  services.desktopManager.plasma6.enable = true;
-  services.displayManager.plasma-login-manager.enable = true;
-  services.flatpak.enable = true;
-  services.fstrim.enable = true;
+  
+  services = {
+    avahi.enable = true;
+    avahi.nssmdns4 = true;
+    desktopManager.plasma6.enable = true;
+    displayManager.plasma-login-manager.enable = true;
+    flatpak.enable = true;
+    fstrim.enable = true;
+    lact.enable = true;
+    libinput.enable = true;
+    openssh.enable = true;
+    pipewire.enable = true;
+    pipewire.pulse.enable = true;
+    power-profiles-daemon.enable = true;
+    printing.enable = true;
+    tailscale.enable = true;
+  };
   services.hydra = {
     enable = true;
     hydraURL = "http://localhost:3000";
     notificationSender = "hydra@localhost";
     useSubstitutes = true;
   };
-  services.lact.enable = true;
-  services.libinput.enable = true;
-  services.openssh.enable = true;
-  services.pipewire.enable = true;
-  services.pipewire.pulse.enable = true;
-  services.power-profiles-daemon.enable = true;
-  services.printing.enable = true;
-  services.tailscale.enable = true;
-
-  programs._1password-gui.enable = true;
-  programs._1password-gui.polkitPolicyOwners = [ "ryan" ];
+  
+  programs = {
+    _1password-gui.enable = true;
+    _1password-gui.polkitPolicyOwners = [ "ryan" ];
+  };
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
