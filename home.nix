@@ -30,6 +30,7 @@ in
     fastfetch
     gpu-screen-recorder-gtk
     kdePackages.kcalc
+    kdePackages.filelight
     nextcloud-client
     onlyoffice-desktopeditors
     protonplus
