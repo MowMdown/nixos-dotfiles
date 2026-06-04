@@ -16,7 +16,7 @@
     hostName = "laptop";
     usePredictableInterfaceNames = false;
     useDHCP = false;
-    networking.interfaces = {
+    interfaces = {
       wlan0.ipv4.addresses = [{
         address = "10.0.0.101";
         prefixLength = 8;
