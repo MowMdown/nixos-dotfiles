@@ -14,12 +14,6 @@
     "zswap.max_pool_percent=50"
   ];
 
-  networking = {
-    networkmanager.enable = true;
-    nftables.enable = true;
-    firewall.enable = true;
-  };
-
   time.timeZone = "America/New_York";
   
   services = {
