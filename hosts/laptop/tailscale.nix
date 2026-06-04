@@ -17,7 +17,7 @@
       onState = [ "routable" ];
 
       script =
-        "${pkgs.ethtool}/bin/ethtool -K wlp2s0 rx-udp-gro-forwarding on rx-gro-list off";
+        "${pkgs.ethtool}/bin/ethtool -K wlan0 rx-udp-gro-forwarding on rx-gro-list off";
     };
   };
 }
