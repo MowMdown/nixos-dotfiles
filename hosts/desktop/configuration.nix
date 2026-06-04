@@ -6,7 +6,26 @@
     ../../modules/upgrade.nix
   ];
 
-  networking.hostName = "desktop";
+  networking = {
+    hostName = "desktop";
+    usePredictableInterfaceNames = false;
+    useDHCP = false;
+    networking.interfaces = {
+      eth0.ipv4.addresses = [{
+        address = "10.0.0.100";
+        prefixLength = 8;
+      }];
+      wlan0.ipv4.addresses = [{
+        address = "10.0.0.111";
+        prefixLength = 8;
+      }];
+    };
+    defaultGateway = "10.0.0.1";
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    networkmanager.enable = true;
+    nftables.enable = true;
+    firewall.enable = true;
+  };
 
   hardware.openrazer.enable = true;
 
