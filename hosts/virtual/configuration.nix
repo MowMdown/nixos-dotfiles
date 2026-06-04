@@ -7,5 +7,12 @@
     ../../modules/vm.nix
   ];
 
-  networking.hostName = "virtual";
+    networking = {
+      hostName = "virtual";
+      usePredictableInterfaceNames = false;
+      networkmanager.enable = true;
+      nftables.enable = true;
+      firewall.enable = true;
+  };
+
 }
