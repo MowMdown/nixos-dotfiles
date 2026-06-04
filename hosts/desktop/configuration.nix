@@ -21,7 +21,7 @@
       }];
     };
     defaultGateway = "10.0.0.1";
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    nameservers = [ "10.0.0.1" "10.0.0.10" ];
     networkmanager.enable = true;
     nftables.enable = true;
     firewall.enable = true;
