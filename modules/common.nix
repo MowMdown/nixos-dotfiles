@@ -53,6 +53,7 @@
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
+    protontricks.enable = true;
   };
   
   users.users.ryan = {
@@ -72,6 +73,8 @@
     openlinkhub
     openrazer-daemon
     steam-run
+    wineWow64Packages.staging
+    winetricks
   ];
 
   fonts.packages = with pkgs; [
