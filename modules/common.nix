@@ -68,6 +68,7 @@
     openlinkhub
     openrazer-daemon
     steam-run
+    waypipe
     wineWow64Packages.staging
     winetricks
   ];
