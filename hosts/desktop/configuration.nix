@@ -10,7 +10,7 @@
     hostName = "desktop";
     usePredictableInterfaceNames = false;
     useDHCP = false;
-    networking.interfaces = {
+    interfaces = {
       eth0.ipv4.addresses = [{
         address = "10.0.0.100";
         prefixLength = 8;
