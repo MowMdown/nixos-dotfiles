@@ -12,11 +12,27 @@
     "resume_offset=29169775"
   ];
 
-  networking.hostName = "laptop";
+  networking = {
+    hostName = "laptop";
+    usePredictableInterfaceNames = false;
+    useDHCP = false;
+    networking.interfaces = {
+      wlan0.ipv4.addresses = [{
+        address = "10.0.0.101";
+        prefixLength = 8;
+      }];
+    };
+    defaultGateway = "10.0.0.1";
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    networkmanager.enable = true;
+    nftables.enable = true;
+    firewall.enable = true;
+  };
 
   hardware.openrazer.enable = true;
 
   boot.loader.limine.extraEntries = ''
+  
     /Gentoo Linux
     protocol: linux
     kernel_path: boot():/kernel-7.0.11-gentoo-dist
