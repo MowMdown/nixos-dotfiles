@@ -25,6 +25,7 @@
     defaultGateway = "10.0.0.1";
     nameservers = [ "10.0.0.1" "10.0.0.10" ];
     networkmanager.enable = true;
+    networkmanager.wifi.backend = "iwd";
     nftables.enable = true;
     firewall.enable = true;
   };
