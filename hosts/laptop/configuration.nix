@@ -7,6 +7,11 @@
     ../../modules/nvidia.nix
   ];
 
+  boot.kernelParams = [
+    "resume=UUID=1dd2e967-e85d-43cd-a61b-e48ffa8ff450"
+    "resume_offset=29169775"
+  ];
+
   networking.hostName = "laptop";
 
   hardware.openrazer.enable = true;
