@@ -17,9 +17,6 @@
   time.timeZone = "America/New_York";
   
   services = {
-    avahi.enable = true;
-    avahi.nssmdns4 = true;
-    avahi.openFirewall = true;
     desktopManager.plasma6.enable = true;
     displayManager.plasma-login-manager.enable = true;
     flatpak.enable = true;
@@ -33,21 +30,10 @@
     printing.enable = true;
     tailscale.enable = true;
   };
-  services = {
-    avahi.enable = true;
-    avahi.nssmdns4 = true;
-    avahi.openFirewall = true;
-  };
-  
-  programs = {
-    _1password-gui.enable = true;
-    _1password-gui.polkitPolicyOwners = [ "ryan" ];
-  };
-  programs.steam = {
+  services.avahi = {
     enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-    protontricks.enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
   };
   
   users.users.ryan = {
@@ -72,6 +58,17 @@
     wineWow64Packages.staging
     winetricks
   ];
+
+  programs = {
+    _1password-gui.enable = true;
+    _1password-gui.polkitPolicyOwners = [ "ryan" ];
+  };
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    protontricks.enable = true;
+  };
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
