@@ -11,20 +11,22 @@
     with nixpkgs.lib;
     let
       system = "x86_64-linux";
-      homeModule = {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          users.ryan = import ./home.nix;
-          backupFileExtension = "backup";
-        };
-      };
       mkHost = hostModule: nixosSystem {
         inherit system;
-        modules = [ hostModule home-manager.nixosModules.home-manager homeModule ];
+        modules = [
+          hostModule
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.ryan = import ./home.nix;
+              backupFileExtension = "backup";
+            };
+          }
+        ];
       };
-    in
-    {
+    in {
       nixosConfigurations = {
         desktop = mkHost ./hosts/desktop/configuration.nix;
         laptop = mkHost ./hosts/laptop/configuration.nix;
