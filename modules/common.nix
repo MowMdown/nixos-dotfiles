@@ -19,6 +19,7 @@
   services = {
     avahi.enable = true;
     avahi.nssmdns4 = true;
+    avahi.openFirewall = true;
     desktopManager.plasma6.enable = true;
     displayManager.plasma-login-manager.enable = true;
     flatpak.enable = true;
@@ -32,11 +33,10 @@
     printing.enable = true;
     tailscale.enable = true;
   };
-  services.hydra = {
-    enable = true;
-    hydraURL = "http://localhost:3000";
-    notificationSender = "hydra@localhost";
-    useSubstitutes = true;
+  services = {
+    avahi.enable = true;
+    avahi.nssmdns4 = true;
+    avahi.openFirewall = true;
   };
   
   programs = {
