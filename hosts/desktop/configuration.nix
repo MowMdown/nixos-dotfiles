@@ -29,6 +29,8 @@
   };
 
   hardware.openrazer.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = false;
 
   boot.loader.limine.extraEntries = ''
 
