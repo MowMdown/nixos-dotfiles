@@ -50,6 +50,7 @@
     aha
     alsa-utils
     ethtool
+    ghostscript
     lact
     openlinkhub
     openrazer-daemon
