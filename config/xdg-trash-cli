@@ -150,5 +150,3 @@ trash-empty() {
     done
     echo "Removed: $removed item(s)"
 }
-
-

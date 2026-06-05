@@ -54,6 +54,7 @@
     lact
     openlinkhub
     openrazer-daemon
+    python3
     steam-run
     waypipe
     wineWow64Packages.staging
