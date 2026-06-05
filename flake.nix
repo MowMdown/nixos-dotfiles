@@ -8,21 +8,18 @@
     };
   };
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
-    with nixpkgs.lib;
     let
       system = "x86_64-linux";
-      mkHost = hostModule: nixosSystem {
+      mkHost = hostModule: nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           hostModule
           home-manager.nixosModules.home-manager
           {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.ryan = import ./home.nix;
-              backupFileExtension = "backup";
-            };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.ryan = import ./home.nix;
+            home-manager.backupFileExtension = "backup";
           }
         ];
       };
