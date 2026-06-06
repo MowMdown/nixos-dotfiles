@@ -15,15 +15,6 @@
   networking = {
     hostName = "laptop";
     usePredictableInterfaceNames = false;
-    useDHCP = false;
-    interfaces = {
-      wlan0.ipv4.addresses = [{
-        address = "10.0.0.101";
-        prefixLength = 8;
-      }];
-    };
-    defaultGateway = "10.0.0.1";
-    nameservers = [ "10.0.0.1" "10.0.0.10" ];
     networkmanager.enable = true;
     networkmanager.wifi.backend = "iwd";
     nftables.enable = true;

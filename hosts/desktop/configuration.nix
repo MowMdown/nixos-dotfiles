@@ -9,22 +9,9 @@
   networking = {
     hostName = "desktop";
     usePredictableInterfaceNames = false;
-    useDHCP = false;
-    defaultGateway = "10.0.0.1";
-    nameservers = [ "10.0.0.1" "10.0.0.10" ];
     networkmanager.enable = true;
     networkmanager.wifi.backend = "iwd";
     nftables.enable = true;
-  };
-  networking.interfaces = {
-    eth0.ipv4.addresses = [{
-      address = "10.0.0.100";
-      prefixLength = 8;
-    }];
-    wlan0.ipv4.addresses = [{
-      address = "10.0.0.111";
-      prefixLength = 8;
-    }];
   };
   networking.firewall = {
     enable = true;
@@ -37,7 +24,6 @@
   hardware.bluetooth.powerOnBoot = false;
 
   boot.loader.limine.extraEntries = ''
-
     /Windows 11
     protocol: efi
     path: guid(4e4d4d22-81e9-4d8a-9b07-528d0bf1aa59):/EFI/Microsoft/Boot/bootmgfw.efi

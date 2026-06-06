@@ -1,13 +1,12 @@
 { config, pkgs, lib, ... }:
 {
-  boot.loader.limine ={
-    enable = true;
-    maxGenerations = 5;
-    resolution = "1920x1080x32";
+  boot.loader = {
+    limine.enable = true;
+    limine.maxGenerations = 3;
+    efi.canTouchEfiVariables = true;
   };
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernel.sysctl = { "vm.swappiness" = 100; };
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
     "zswap.enabled=1"
     "zswap.compressor=zstd"
@@ -44,7 +43,6 @@
   environment.etc."1password/custom_allowed_browsers".text = "firefox";
   environment.etc."1password/custom_allowed_browsers".mode = "0755";
   environment.systemPackages = with pkgs; [
-    _1password-gui
     aha
     alsa-utils
     ethtool
@@ -59,9 +57,9 @@
     winetricks
   ];
 
-  programs = {
-    _1password-gui.enable = true;
-    _1password-gui.polkitPolicyOwners = [ "ryan" ];
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "ryan" ];
   };
   programs.steam = {
     enable = true;
