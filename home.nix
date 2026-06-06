@@ -4,14 +4,14 @@ let
   secrets = import ./secrets.nix;
   dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
-  configs = {
-      nvim = "nvim";
-    };
+#  configs = {
+#      nvim = "nvim";
+#    };
 in
 
 {
   imports = [
-    ./modules/neovim.nix
+    ./modules/plasma.nix
   ];
 
   home = {
@@ -20,10 +20,10 @@ in
     stateVersion = "26.05";
   };
 
-  xdg.configFile = builtins.mapAttrs (name: subpath: {
-    source = create_symlink "${dotfiles}/${subpath}";
-    recursive = true;
-  }) configs;
+#  xdg.configFile = builtins.mapAttrs (name: subpath: {
+#    source = create_symlink "${dotfiles}/${subpath}";
+#    recursive = true;
+#  }) configs;
 
   home.packages = with pkgs; [
     discord
@@ -46,12 +46,10 @@ in
       email = secrets.gitEmail;
     };
   };
-
   programs.firefox = {
     enable = true;
     configPath = "${config.xdg.configHome}/mozilla/firefox";
   };
-
   programs.bash = {
     enable = true;
     initExtra = builtins.readFile ./config/xdg-trash-cli;
@@ -59,6 +57,14 @@ in
       ff = "clear && fastfetch";
       nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#$HOSTNAME";
       nix-test = "sudo nixos-rebuild test --flake ~/nixos-dotfiles#$HOSTNAME";
+    };
+  };
+  programs.nixvim = {
+    enable = true;
+    opts = {
+      number = true;
+      relativenumber = true;
+      shiftwidth = 2;
     };
   };
 }
