@@ -18,7 +18,11 @@
     networkmanager.enable = true;
     networkmanager.wifi.backend = "iwd";
     nftables.enable = true;
-    firewall.enable = true;
+  };
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 53317 ];
+    allowedUDPPorts = [ 53317 ];
   };
 
   hardware.openrazer.enable = true;
