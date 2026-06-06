@@ -8,7 +8,6 @@
     extraPackages = with pkgs; [
       fd
       ripgrep
-      # Formatters & Linters
       stylua
       black
       isort
