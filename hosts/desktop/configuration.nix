@@ -10,22 +10,26 @@
     hostName = "desktop";
     usePredictableInterfaceNames = false;
     useDHCP = false;
-    interfaces = {
-      eth0.ipv4.addresses = [{
-        address = "10.0.0.100";
-        prefixLength = 8;
-      }];
-      wlan0.ipv4.addresses = [{
-        address = "10.0.0.111";
-        prefixLength = 8;
-      }];
-    };
     defaultGateway = "10.0.0.1";
     nameservers = [ "10.0.0.1" "10.0.0.10" ];
     networkmanager.enable = true;
     networkmanager.wifi.backend = "iwd";
     nftables.enable = true;
-    firewall.enable = true;
+  };
+  networking.interfaces = {
+    eth0.ipv4.addresses = [{
+      address = "10.0.0.100";
+      prefixLength = 8;
+    }];
+    wlan0.ipv4.addresses = [{
+      address = "10.0.0.111";
+      prefixLength = 8;
+    }];
+  };
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 53317 ];
+    allowedUDPPorts = [ 53317 ];
   };
 
   hardware.openrazer.enable = true;

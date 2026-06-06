@@ -38,7 +38,7 @@
   
   users.users.ryan = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "video" "plugdev" "storage" "openrazer" ];
+    extraGroups = [ "wheel" "audio" "video" "plugdev" "storage" "networkmanager" "openrazer" ];
   };
 
   environment.etc."1password/custom_allowed_browsers".text = ''
