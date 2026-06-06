@@ -1,11 +1,9 @@
 { config, pkgs, lib, ... }:
 
 {
-  boot.loader = {
-    limine.enable = true;
-    limine.maxGenerations = 3;
-    efi.canTouchEfiVariables = true;
-  };
+  boot.loader.limine.enable = true;
+  boot.loader.limine.maxGenerations = 3;
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = { "vm.swappiness" = 100; };
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
