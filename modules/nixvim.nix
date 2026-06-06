@@ -5,22 +5,24 @@
     enable = true;
 
     # ── System Packages & Dependencies ──────────────────────────────────────
-    # Bundles the CLI tools needed by your formatters, linters, and plugins
     extraPackages = with pkgs; [
-      tree-sitter
       fd
       ripgrep
+      # Formatters & Linters
       stylua
       black
       isort
+      ruff
       prettier
       nixpkgs-fmt
     ];
 
-# ── External Raw Plugins ────────────────────────────────────────────────
-    # We load alpha-nvim raw here to completely bypass Nixvim's layout schemas
+    # ── External Raw Plugins ────────────────────────────────────────────────
     extraPlugins = with pkgs.vimPlugins; [
       alpha-nvim
+      git-conflict-nvim  # Inline git merge conflict resolution
+      cmp-cmdline        # Command-line completion source for cmp
+      cmp-buffer         # Buffer source dependency for command-line search
     ];
 
     # ── Core options ────────────────────────────────────────────────────────
@@ -116,12 +118,15 @@
       # Toggle line numbers
       { mode = "n"; key = "<leader>ul"; action = "<cmd>set nu! rnu!<CR>"; options.desc = "Toggle line numbers"; }
 
-      # Plugin Toggles
-      { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree toggle<CR>"; options.desc = "Explorer Neo-tree (root)"; }
+      # Plugin Toggles & Workspaces
+      { mode = "n"; key = "<leader>e";  action = "<cmd>Neotree toggle<CR>"; options.desc = "Explorer Neo-tree (root)"; }
       { mode = "n"; key = "<leader>xx"; action = "<cmd>Trouble diagnostics toggle<CR>"; options.desc = "Diagnostics (Trouble)"; }
       { mode = "n"; key = "<leader>xX"; action = "<cmd>Trouble diagnostics toggle filter.buf=0<CR>"; options.desc = "Buffer Diagnostics (Trouble)"; }
       { mode = "n"; key = "<leader>xq"; action = "<cmd>Trouble quickfix toggle<CR>"; options.desc = "Quickfix List (Trouble)"; }
       { mode = "n"; key = "<leader>xl"; action = "<cmd>Trouble loclist toggle<CR>"; options.desc = "Location List (Trouble)"; }
+
+      # Keymaps for utilities
+      { mode = "n"; key = "<leader>sr"; action = "<cmd>GrugFar<CR>"; options.desc = "Search & Replace (Global)"; }
     ];
 
     # ── Plugins ─────────────────────────────────────────────────────────────
@@ -219,7 +224,7 @@
         };
       };
 
-      # Which-key
+      # Which-key labels
       which-key = {
         enable = true;
         settings = {
@@ -238,9 +243,10 @@
         };
       };
 
-      # Treesitter
+      # Treesitter parsing setup
       treesitter = {
         enable = true;
+        package = pkgs.vimPlugins.nvim-treesitter;
         settings = {
           highlight.enable = true;
           indent.enable = true;
@@ -257,7 +263,7 @@
       treesitter-context.enable = true;
       treesitter-textobjects.enable = true;
 
-      # LSP
+      # LSP Engine
       lsp = {
         enable = true;
         servers = {
@@ -343,7 +349,7 @@
         };
       };
 
-      # Snippets
+      # Snippets architecture
       luasnip = {
         enable = true;
         settings.history = true;
@@ -351,7 +357,7 @@
       };
       friendly-snippets.enable = true;
 
-      # Formatter (Conform)
+      # Formatter Engine (Conform)
       conform-nvim = {
         enable = true;
         settings = {
@@ -361,7 +367,7 @@
           };
           formatters_by_ft = {
             lua = [ "stylua" ];
-            python = [ "ruff_format" ];
+            python = [ "isort" "black" ];
             javascript = [ "prettier" ];
             typescript = [ "prettier" ];
             nix = [ "nixpkgs-fmt" ];
@@ -370,7 +376,7 @@
         };
       };
 
-      # Linting (Nvim-lint)
+      # Linting System (Nvim-lint)
       lint = {
         enable = true;
         lintersByFt = {
@@ -378,7 +384,7 @@
         };
       };
 
-      # Git signs
+      # Git indicators
       gitsigns = {
         enable = true;
         settings = {
@@ -410,7 +416,13 @@
         };
       };
 
-      # Utilities
+      # Interactive Visual Find & Replace
+      grug-far = {
+        enable = true;
+        settings.disableSigncolumn = true;
+      };
+
+      # Utilities & Enhancements
       nvim-autopairs.enable = true;
       vim-surround.enable = true;
       comment.enable = true;
@@ -426,12 +438,18 @@
         };
       };
 
+      # UI Animation suite & Modern icons
       mini = {
         enable = true;
         mockDevIcons = true;
         modules = {
           ai = {};
           icons = {};
+          # Smooth scrolling & crisp window layout animations
+          animate = {
+            scroll = { enable = true; };
+            cursor = { enable = false; };
+          };
         };
       };
 
@@ -499,7 +517,7 @@
       end
 
       -- Hide/Show tablines during Alpha life cycles
-      vim.api.nvim_create_autocromd = vim.api.nvim_create_autocmd or nil
+      vim.api.nvim_create_autocromd = vim.api.nvim_create_autocromd or nil
       vim.api.nvim_create_autocmd("User", {
         pattern  = "AlphaReady",
         callback = function() vim.opt.showtabline = 0 end,
@@ -507,6 +525,15 @@
       vim.api.nvim_create_autocmd("BufUnload", {
         buffer   = 0,
         callback = function() vim.opt.showtabline = 2 end,
+      })
+
+      -- Automatically open Neo-tree on launch if no specific file is opened
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          if vim.fn.argc() == 0 or vim.fn.isdirectory(vim.fn.argv(0)) == 1 then
+            vim.cmd("Neotree show left")
+          end
+        end,
       })
 
       -- Todo-comments navigation
@@ -524,6 +551,50 @@
       vim.keymap.set({ "n", "x", "o" }, "S",  function() require("flash").treesitter() end,        { desc = "Flash Treesitter" })
       vim.keymap.set("o",               "r",  function() require("flash").remote() end,            { desc = "Remote Flash" })
       vim.keymap.set({ "x", "o" },      "R",  function() require("flash").treesitter_search() end, { desc = "Treesitter Search" })
+
+      -- Initialize Git Conflict Inline Management Plugin
+      require('git-conflict').setup({
+        default_mappings = true,
+        default_commands = true,
+        disable_diagnostics = false,
+      })
+
+      -- Command-line autocomplete setup
+      local cmp = require('cmp')
+
+      -- Colon (:) command-line completion
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline({
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end, { 'c' }),
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end, { 'c' }),
+        }),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        }),
+        matching = { disallow_symbol_nonprefix_matching = false }
+      })
+
+      -- Search (/) and (?) command-line completion
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
 
       -- Diagnostic UI Window Tweaks
       vim.diagnostic.config({
