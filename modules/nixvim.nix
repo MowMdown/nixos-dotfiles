@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   programs.nixvim = {
@@ -444,11 +444,6 @@
         modules = {
           ai = {};
           icons = {};
-          # Smooth scrolling & crisp window layout animations
-          animate = {
-            scroll = { enable = true; };
-            cursor = { enable = false; };
-          };
         };
       };
 
