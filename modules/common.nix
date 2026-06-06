@@ -24,6 +24,7 @@
     lact.enable = true;
     libinput.enable = true;
     openssh.enable = true;
+    pipewire.enable = true;
     pipewire.pulse.enable = true;
     power-profiles-daemon.enable = true;
     printing.enable = true;
@@ -34,13 +35,6 @@
     nssmdns4 = true;
     openFirewall = true;
   };
-  services.pipewire.enable = true;
-    xdg.portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-kde
-      ];
-    };
 
   users.users.ryan = {
     isNormalUser = true;
