@@ -21,7 +21,7 @@
       alpha-nvim
       git-conflict-nvim  # Inline git merge conflict resolution
       cmp-cmdline        # Command-line completion source for cmp
-      cmp-buffer         # Buffer source dependency for command-line search
+      # cmp-buffer removed: redundant, already provided by the cmp nixvim module
     ];
 
     # ── Core options ────────────────────────────────────────────────────────
@@ -124,6 +124,12 @@
       { mode = "n"; key = "<leader>xq"; action = "<cmd>Trouble quickfix toggle<CR>"; options.desc = "Quickfix List (Trouble)"; }
       { mode = "n"; key = "<leader>xl"; action = "<cmd>Trouble loclist toggle<CR>"; options.desc = "Location List (Trouble)"; }
 
+      # Window split keymaps (fills the registered <leader>w group)
+      { mode = "n"; key = "<leader>wv"; action = "<cmd>vsplit<CR>"; options.desc = "Split vertical"; }
+      { mode = "n"; key = "<leader>ws"; action = "<cmd>split<CR>"; options.desc = "Split horizontal"; }
+      { mode = "n"; key = "<leader>ww"; action = "<C-w>p"; options.desc = "Other window"; }
+      { mode = "n"; key = "<leader>wd"; action = "<cmd>close<CR>"; options.desc = "Close window"; }
+
       # Keymaps for utilities
       { mode = "n"; key = "<leader>sr"; action = "<cmd>GrugFar<CR>"; options.desc = "Search & Replace (Global)"; }
     ];
@@ -153,7 +159,7 @@
               { __unkeyed-1 = "filename"; path = 1; symbols = { modified = "  "; readonly = ""; unnamed = ""; }; }
             ];
             lualine_x = [
-              { __unkeyed-1 = "filetype"; icon_only = true; separator = ""; padding = { left = 1; right = 0; }; }
+              # Removed duplicate filetype entry — icon_only = true already shows the icon
               { __unkeyed-1 = "filetype"; icon_only = false; }
             ];
             lualine_y = [
@@ -229,15 +235,16 @@
         settings = {
           notify = false;
           spec = [
-            { __unkeyed-1 = "<leader>b"; group = "buffers"; }
-            { __unkeyed-1 = "<leader>c"; group = "code"; }
-            { __unkeyed-1 = "<leader>f"; group = "file/find"; }
-            { __unkeyed-1 = "<leader>g"; group = "git"; }
-            { __unkeyed-1 = "<leader>q"; group = "quit/session"; }
-            { __unkeyed-1 = "<leader>s"; group = "search"; }
-            { __unkeyed-1 = "<leader>u"; group = "ui"; }
-            { __unkeyed-1 = "<leader>w"; group = "windows"; }
-            { __unkeyed-1 = "<leader>x"; group = "diagnostics/quickfix"; }
+            { __unkeyed-1 = "<leader>b";  group = "buffers"; }
+            { __unkeyed-1 = "<leader>c";  group = "code"; }
+            { __unkeyed-1 = "<leader>f";  group = "file/find"; }
+            { __unkeyed-1 = "<leader>g";  group = "git"; }
+            { __unkeyed-1 = "<leader>gh"; group = "hunks"; }
+            { __unkeyed-1 = "<leader>q";  group = "quit/session"; }
+            { __unkeyed-1 = "<leader>s";  group = "search"; }
+            { __unkeyed-1 = "<leader>u";  group = "ui"; }
+            { __unkeyed-1 = "<leader>w";  group = "windows"; }
+            { __unkeyed-1 = "<leader>x";  group = "diagnostics/quickfix"; }
           ];
         };
       };
@@ -270,7 +277,12 @@
             enable = true;
             settings.Lua.workspace.checkThirdParty = false;
           };
-          nixd.enable = true;
+          nixd = {
+            enable = true;
+            settings = {
+              formatting.command = [ "nixpkgs-fmt" ];
+            };
+          };
           rust_analyzer = {
             enable = true;
             installCargo = false;
@@ -477,6 +489,9 @@
       -- Fillchars
       vim.opt.fillchars = { foldopen = "v", foldclose = ">", fold = " ", foldsep = " ", diff = "-", eob = " " }
 
+      -- Route vim.notify through Noice so there is one notification system
+      vim.notify = require("noice").notify
+
       -- Dashboard Setup Natively via Lua Hooks
       local alpha = require("alpha")
       local dashboard = require("alpha.themes.dashboard")
@@ -511,7 +526,6 @@
       end
 
       -- Hide/Show tablines during Alpha life cycles
-      vim.api.nvim_create_autocromd = vim.api.nvim_create_autocromd or nil
       vim.api.nvim_create_autocmd("User", {
         pattern  = "AlphaReady",
         callback = function() vim.opt.showtabline = 0 end,
