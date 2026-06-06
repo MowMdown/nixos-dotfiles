@@ -50,6 +50,8 @@ in
   programs.firefox = {
     enable = true;
     configPath = "${config.xdg.configHome}/mozilla/firefox";
+    nativeMessagingHosts.packages = [ pkgs.kdePackages.plasma-browser-integration ];
+    preferences = { "widget.use-xdg-desktop-portal.file-picker" = 1; };
   };
 
   programs.bash = {

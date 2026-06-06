@@ -24,7 +24,6 @@
     lact.enable = true;
     libinput.enable = true;
     openssh.enable = true;
-    pipewire.enable = true;
     pipewire.pulse.enable = true;
     power-profiles-daemon.enable = true;
     printing.enable = true;
@@ -35,15 +34,20 @@
     nssmdns4 = true;
     openFirewall = true;
   };
-  
+  services.pipewire.enable = true;
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-kde
+      ];
+    };
+
   users.users.ryan = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "video" "plugdev" "storage" "networkmanager" "openrazer" ];
   };
 
-  environment.etc."1password/custom_allowed_browsers".text = ''
-    firefox
-  '';
+  environment.etc."1password/custom_allowed_browsers".text = "firefox";
   environment.etc."1password/custom_allowed_browsers".mode = "0755";
   environment.systemPackages = with pkgs; [
     _1password-gui
