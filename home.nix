@@ -11,6 +11,7 @@ in
 
 {
   imports = [
+    ./modules/nixvim.nix
     ./modules/plasma.nix
   ];
 
@@ -57,14 +58,6 @@ in
       ff = "clear && fastfetch";
       nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#$HOSTNAME";
       nix-test = "sudo nixos-rebuild test --flake ~/nixos-dotfiles#$HOSTNAME";
-    };
-  };
-  programs.nixvim = {
-    enable = true;
-    opts = {
-      number = true;
-      relativenumber = true;
-      shiftwidth = 2;
     };
   };
 }
