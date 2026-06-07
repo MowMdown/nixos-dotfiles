@@ -36,6 +36,7 @@ in
     nextcloud-client
     onlyoffice-desktopeditors
     protonplus
+    thunderbird
     tree
     vim
     wget
