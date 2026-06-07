@@ -2,28 +2,29 @@ let
   NIX  = "/dev/disk/by-label/NIX";
   EFI  = "/dev/disk/by-label/EFI";
   SWAP = "/dev/disk/by-label/SWAP";
+  btrfsOpts = [ "compress=zstd:3" "noatime" "discard=async" "space_cache=v2" ];
 in
 {
   fileSystems = {
     "/" = {
       device = NIX;
       fsType = "btrfs";
-      options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@" ];
+      options = [ "subvol=@" ] ++ btrfsOpts;
     };
     "/home" = {
       device = NIX;
       fsType = "btrfs";
-      options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@home" ];
+      options = [ "subvol=@home" ] ++ btrfsOpts;
     };
     "/var/tmp" = {
       device = NIX;
       fsType = "btrfs";
-      options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@tmp" ];
+      options = [ "subvol=@tmp" ] ++ btrfsOpts;
     };
     "/var/log" = {
       device = NIX;
       fsType = "btrfs";
-      options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@log" ];
+      options = [ "subvol=@log" ] ++ btrfsOpts;
     };
     "/boot" = {
       device = EFI;
