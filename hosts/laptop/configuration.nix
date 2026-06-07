@@ -46,7 +46,6 @@
   };
 
   services = {
-    xserver.videoDrivers = [ "amdgpu" "nvidia" ];
     tailscale.enable = true;
     networkd-dispatcher = {
       enable = true;
@@ -54,6 +53,8 @@
         onState = [ "routable" ];
         script = "${pkgs.ethtool}/bin/ethtool -K wlan0 rx-udp-gro-forwarding on rx-gro-list off";
       };
+    xserver.enable = true;
+    xserver.videoDrivers = [ "amdgpu" "nvidia" ];
     };
   };
 
@@ -66,7 +67,7 @@
     bluetooth.enable = true;
     bluetooth.powerOnBoot = false;
     firmware = with pkgs; [
-      pkgs.wireless-regdb
+      wireless-regdb
     ];
     graphics.enable = true;
     graphics.enable32Bit = true;
