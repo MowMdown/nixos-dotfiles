@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
     ./tailscale.nix
     ../../modules/common.nix
+    ../../modules/nixvim.nix
     ../../modules/upgrade.nix
     ../../modules/vm.nix
   ];
