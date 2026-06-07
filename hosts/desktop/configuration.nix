@@ -12,6 +12,9 @@
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
     initrd.kernelModules = [ "amdgpu" ];
     kernelModules = [ "kvm-amd" ];
+    kernelParams = [
+      "resume=UUID=bcf7f4cf-647f-46af-835a-7ae162a1972b"
+    ];
     extraModprobeConfig = ''
       options cfg80211 ieee80211_regdom="US"
     '';
