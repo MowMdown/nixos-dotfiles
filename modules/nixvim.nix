@@ -132,6 +132,7 @@
 
       # Keymaps for utilities
       { mode = "n"; key = "<leader>sr"; action = "<cmd>GrugFar<CR>"; options.desc = "Search & Replace (Global)"; }
+      { mode = "n"; key = "<leader>st"; action = "<cmd>TodoTelescope<CR>"; options.desc = "Todo (Telescope)"; }
     ];
 
     # ── Plugins ─────────────────────────────────────────────────────────────
@@ -242,6 +243,7 @@
             { __unkeyed-1 = "<leader>gh"; group = "hunks"; }
             { __unkeyed-1 = "<leader>q";  group = "quit/session"; }
             { __unkeyed-1 = "<leader>s";  group = "search"; }
+            { __unkeyed-1 = "<leader>st"; desc = "Todo (Telescope)"; }
             { __unkeyed-1 = "<leader>u";  group = "ui"; }
             { __unkeyed-1 = "<leader>w";  group = "windows"; }
             { __unkeyed-1 = "<leader>x";  group = "diagnostics/quickfix"; }
@@ -267,7 +269,6 @@
       };
 
       treesitter-context.enable = true;
-      treesitter-textobjects.enable = true;
 
       # LSP Engine
       lsp = {
@@ -275,13 +276,11 @@
         servers = {
           lua_ls = {
             enable = true;
-            settings.Lua.workspace.checkThirdParty = false;
+            settings.workspace.checkThirdParty = false;
           };
           nixd = {
             enable = true;
-            settings = {
-              formatting.command = [ "nixpkgs-fmt" ];
-            };
+            settings.nixd.formatting.command = [ "nixpkgs-fmt" ];
           };
           rust_analyzer = {
             enable = true;
@@ -545,7 +544,6 @@
       })
 
       -- Todo-comments navigation
-      vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "Todo (Telescope)" })
       vim.keymap.set("n", "]t", function() require("todo-comments").jump_next() end,  { desc = "Next todo comment" })
       vim.keymap.set("n", "[t", function() require("todo-comments").jump_prev() end,  { desc = "Prev todo comment" })
 
@@ -568,8 +566,6 @@
       })
 
       -- Command-line autocomplete setup
-      local cmp = require('cmp')
-
       -- Colon (:) command-line completion
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline({
