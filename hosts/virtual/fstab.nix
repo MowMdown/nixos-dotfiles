@@ -10,25 +10,21 @@ in
       fsType = "btrfs";
       options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@" ];
     };
-
     "/home" = {
       device = NIX;
       fsType = "btrfs";
       options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@home" ];
     };
-
     "/var/tmp" = {
       device = NIX;
       fsType = "btrfs";
       options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@tmp" ];
     };
-
     "/var/log" = {
       device = NIX;
       fsType = "btrfs";
       options = [ "noatime" "compress=zstd:3" "space_cache=v2" "discard=async" "subvol=@log" ];
     };
-
     "/boot" = {
       device = EFI;
       fsType = "vfat";

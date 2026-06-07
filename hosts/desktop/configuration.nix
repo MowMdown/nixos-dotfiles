@@ -15,6 +15,7 @@
     extraModprobeConfig = ''
       options cfg80211 ieee80211_regdom="US"
     '';
+    extraModulePackages = [ ];
     loader.limine.extraEntries = ''
       /Windows 11
       protocol: efi
