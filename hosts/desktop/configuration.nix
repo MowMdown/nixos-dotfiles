@@ -58,6 +58,8 @@
         script = "${pkgs.ethtool}/bin/ethtool -K eth0 rx-udp-gro-forwarding on rx-gro-list off";
       };
     };
+    xserver.enable = true;
+    xserver.videoDrivers = [ "amdgpu" ];
   };
 
   systemd.services.tailscaled.serviceConfig.Environment = [
@@ -65,6 +67,7 @@
   ];
 
   hardware = {
+    amdgpu.overdrive.enable = true;
     openrazer.enable = true;
     bluetooth.enable = true;
     bluetooth.powerOnBoot = false;
