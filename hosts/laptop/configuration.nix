@@ -53,9 +53,9 @@
         onState = [ "routable" ];
         script = "${pkgs.ethtool}/bin/ethtool -K wlan0 rx-udp-gro-forwarding on rx-gro-list off";
       };
+    };
     xserver.enable = true;
     xserver.videoDrivers = [ "amdgpu" "nvidia" ];
-    };
   };
 
   systemd.services.tailscaled.serviceConfig.Environment = [

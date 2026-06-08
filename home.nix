@@ -27,9 +27,12 @@ in
   #  }) configs;
 
   home.packages = with pkgs; [
+    delve
     discord
     fastfetch
     firefox
+    go
+    gopls
     gpu-screen-recorder-gtk
     kdePackages.kcalc
     kdePackages.filelight
@@ -42,6 +45,14 @@ in
     wget
   ];
 
+  programs.vscodium = {
+    enable = true;
+    package = pkgs.vscodium;
+    profiles.default.extensions = with pkgs.vscode-extensions; [
+      golang.go
+      vscodevim.vim
+    ];
+  };
   programs.git = {
     enable = true;
     settings.user = {
