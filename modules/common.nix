@@ -6,7 +6,8 @@
     loader.limine.maxGenerations = 3;
     loader.efi.canTouchEfiVariables = true;
     kernel.sysctl = { "vm.swappiness" = 100; };
-    kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
     kernelParams = [
       "zswap.enabled=1"
       "zswap.compressor=zstd"
