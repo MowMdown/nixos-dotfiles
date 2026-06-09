@@ -27,12 +27,7 @@
           {
             nixpkgs.overlays = [
               cachyos.overlays.default
-
-              (final: prev: {
-                inherit (my-nixpkgs.legacyPackages.${prev.stdenv.hostPlatform.system})
-                  gpu-screen-recorder-ui
-                  gpu-screen-recorder-notification;
-              })
+              my-nixpkgs.overlays.default
             ];
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
