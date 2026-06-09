@@ -10,8 +10,9 @@
 
   boot = {
     initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "sr_mod" "virtio_blk" ];
-    kernelModules = [ "kvm-amd" ];
     initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-amd" ];
+    kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = [ ];
   };
 
