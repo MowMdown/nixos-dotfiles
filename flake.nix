@@ -22,7 +22,7 @@
         inherit system;
         modules = [
           hostModule
-#          self.nixosModules.gpu-screen-recorder-ui
+          self.myModules.gpu-screen-recorder-ui
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [
@@ -41,8 +41,7 @@
         ];
       };
     in {
-#      nixosModules.gpu-screen-recorder-ui = import ./modules/gpu-screen-recorder-ui.nix;  # <-- add this
-
+      myModules.gpu-screen-recorder-ui = import ./modules/gpu-screen-recorder-ui.nix;
       nixosConfigurations = {
         desktop = mkHost ./hosts/desktop/configuration.nix;
         laptop = mkHost ./hosts/laptop/configuration.nix;
