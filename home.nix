@@ -33,7 +33,7 @@ in
     firefox
     go
     gopls
-    gpu-screen-recorder-gtk
+    gpu-screen-recorder-ui
     kdePackages.kcalc
     kdePackages.filelight
     nextcloud-client
