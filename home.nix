@@ -13,7 +13,6 @@ in
   imports = [
     ./modules/nixvim.nix
     ./modules/plasma.nix
-    ./modules/gpu-screen-recorder-ui.nix
   ];
 
   home = {
