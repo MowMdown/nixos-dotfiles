@@ -29,7 +29,7 @@
               cachyos.overlays.default
 
               (final: prev: {
-                inherit (my-nixpkgs.legacyPackages.${prev.system})
+                inherit (my-nixpkgs.legacyPackages.${prev.stdenv.hostPlatform.system})
                   gpu-screen-recorder-ui
                   gpu-screen-recorder-notification;
               })
