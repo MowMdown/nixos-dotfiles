@@ -15,7 +15,6 @@
       inputs.home-manager.follows = "home-manager";
     };
   };
-
   outputs = inputs@{ self, nixpkgs, home-manager, plasma-manager, nixvim, cachyos, my-nixpkgs, ... }:
     let
       system = "x86_64-linux";
@@ -23,6 +22,7 @@
         inherit system;
         modules = [
           hostModule
+          self.nixosModules.gpu-screen-recorder-ui
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [
@@ -41,6 +41,8 @@
         ];
       };
     in {
+      nixosModules.gpu-screen-recorder-ui = import ./modules/gpu-screen-recorder-ui.nix;  # <-- add this
+
       nixosConfigurations = {
         desktop = mkHost ./hosts/desktop/configuration.nix;
         laptop = mkHost ./hosts/laptop/configuration.nix;
