@@ -22,7 +22,7 @@
         inherit system;
         modules = [
           hostModule
-          self.nixosModules.gpu-screen-recorder-ui
+#          self.nixosModules.gpu-screen-recorder-ui
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [
