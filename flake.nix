@@ -41,7 +41,7 @@
         ];
       };
     in {
-      nixosModules.gpu-screen-recorder-ui = import ./modules/gpu-screen-recorder-ui.nix;  # <-- add this
+#      nixosModules.gpu-screen-recorder-ui = import ./modules/gpu-screen-recorder-ui.nix;  # <-- add this
 
       nixosConfigurations = {
         desktop = mkHost ./hosts/desktop/configuration.nix;
