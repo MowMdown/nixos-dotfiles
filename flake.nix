@@ -37,11 +37,12 @@
               plasma-manager.homeModules.plasma-manager
               nixvim.homeModules.nixvim
             ];
+            disabledModules = [ "./programs/gpu-screen-recorder.nix" ];
           }
         ];
       };
     in {
-      myModules.gpu-screen-recorder-ui = import ./modules/gpu-screen-recorder-ui.nix;
+      myModules.gpu-screen-recorder-ui = import ./modules/gpu-screen-recorder.nix;
       nixosConfigurations = {
         desktop = mkHost ./hosts/desktop/configuration.nix;
         laptop = mkHost ./hosts/laptop/configuration.nix;
