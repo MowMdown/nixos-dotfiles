@@ -4,7 +4,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     cachyos.url = "github:xddxdd/nix-cachyos-kernel";
-    my-nixpkgs.url = "git+https://git.plexraid.stream/mowmdown/nixpkgs";
+    my-nixpkgs = {
+      url = "git+https://git.plexraid.stream/mowmdown/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +25,7 @@
         inherit system;
         modules = [
           hostModule
-          self.myModules.gpu-screen-recorder-ui
+          my-nixpkgs.nixosModules.gpu-screen-recorder-ui
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [
@@ -37,12 +40,11 @@
               plasma-manager.homeModules.plasma-manager
               nixvim.homeModules.nixvim
             ];
-            disabledModules = [ "./programs/gpu-screen-recorder.nix" ];
+            disabledModules = [ "programs/gpu-screen-recorder.nix" ];
           }
         ];
       };
     in {
-      myModules.gpu-screen-recorder-ui = import ./modules/gpu-screen-recorder.nix;
       nixosConfigurations = {
         desktop = mkHost ./hosts/desktop/configuration.nix;
         laptop = mkHost ./hosts/laptop/configuration.nix;
