@@ -135,11 +135,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1781045783,
-        "narHash": "sha256-4aGwbg2mS+ySc1qNg8OeXhRmgtDk/iQl64izheVI8Gk=",
+        "lastModified": 1781053146,
+        "narHash": "sha256-26vol0Ib+ZeJyNXOSJkd1KwYSWFuEyj0dUsWK9mDaqA=",
         "ref": "refs/heads/main",
-        "rev": "3f0d107fae58fe0146a42aea812ae4f52c5e95a1",
-        "revCount": 60,
+        "rev": "b38e7f059d312e8d976f4819a2b65869217fced4",
+        "revCount": 80,
         "type": "git",
         "url": "https://git.plexraid.stream/mowmdown/nixpkgs"
       },
