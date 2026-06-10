@@ -187,7 +187,7 @@
       kwin."Window to Screen 7" = [ ];
       kwin.disableInputCapture = "Meta+Shift+Esc";
       kwin.view_actual_size = "Meta+0";
-      kwin.view_zoom_in = ["Meta++" "Meta+\x3d"];
+      kwin.view_zoom_in = ["Meta++" ""];
       kwin.view_zoom_out = "Meta+-";
       mediacontrol.mediavolumedown = [ ];
       mediacontrol.mediavolumeup = [ ];
@@ -242,6 +242,7 @@
       plasmashell."switch to next activity" = [ ];
       plasmashell."switch to previous activity" = [ ];
       plasmashell."toggle do not disturb" = [ ];
+      "services/org.kde.krunner.desktop"._launch = ["Alt+Space" "" "Search"];
       "services/org.kde.spectacle.desktop".CurrentMonitorScreenShot = [ ];
       "services/org.kde.spectacle.desktop".OpenWithoutScreenshot = [ ];
     };
@@ -249,6 +250,7 @@
       baloofilerc.General.dbVersion = 2;
       dolphinrc.DetailsMode.PreviewSize = 22;
       dolphinrc.DetailsMode.RightPadding = 0;
+      dolphinrc.General.DoubleClickViewAction = "view_redisplay";
       dolphinrc.General.ViewPropsTimestamp = "2026,6,1,20,34,41.629";
       dolphinrc.IconsMode.PreviewSize = 32;
       dolphinrc."KFileDialog Settings"."Places Icons Auto-resize" = false;
@@ -303,6 +305,7 @@
       kcminputrc.Keyboard.NumLock = 0;
       kcminputrc."Libinput/10176/2137/wch.cn TouchScreen".OutputUuid = "40cac33b-dce9-4385-a915-adea8730edf1";
       kcminputrc."Libinput/10176/2137/wch.cn TouchScreen".ScrollFactor = 0.75;
+      kcminputrc."Libinput/1267/12668/ELAN06FA:00 04F3:317C Touchpad".ClickMethod = 2;
       kcminputrc."Libinput/1267/12668/ELAN06FA:00 04F3:317C Touchpad".Enabled = true;
       kcminputrc."Libinput/1267/12668/ELAN06FA:00 04F3:317C Touchpad".PointerAcceleration = "-0.200";
       kcminputrc."Libinput/1267/12668/ELAN06FA:00 04F3:317C Touchpad".PointerAccelerationProfile = 1;
@@ -360,6 +363,11 @@
       kservicemenurc.Show.tagsfileitemaction = true;
       kservicemenurc.Show.wallpaperfileitemaction = true;
       ksmserverrc.General.loginMode = "restoreSavedSession";
+      ktrashrc."\\/home\\/ryan\\/.local\\/share\\/Trash".Days = 7;
+      ktrashrc."\\/home\\/ryan\\/.local\\/share\\/Trash".LimitReachedAction = 0;
+      ktrashrc."\\/home\\/ryan\\/.local\\/share\\/Trash".Percent = 10;
+      ktrashrc."\\/home\\/ryan\\/.local\\/share\\/Trash".UseSizeLimit = true;
+      ktrashrc."\\/home\\/ryan\\/.local\\/share\\/Trash".UseTimeLimit = false;
       ktrashrc."\\/mnt\\/disk2\\/.Trash-1000".Days = 7;
       ktrashrc."\\/mnt\\/disk2\\/.Trash-1000".LimitReachedAction = 0;
       ktrashrc."\\/mnt\\/disk2\\/.Trash-1000".Percent = 10;
@@ -379,11 +387,12 @@
       kwinrc."Tiling/367f084e-1bc6-4a4c-b14a-ae4af119a552/b4b508d6-0bf4-4031-8e3a-5313ea94ea20".padding = 4;
       kwinrc."Tiling/367f084e-1bc6-4a4c-b14a-ae4af119a552/b4b508d6-0bf4-4031-8e3a-5313ea94ea20".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
       kwinrc."Tiling/72539958-fa28-4080-bc73-5163829ef38e/28248fd3-24f8-489d-842f-3e642632b260".padding = 4;
-      kwinrc."Tiling/72539958-fa28-4080-bc73-5163829ef38e/28248fd3-24f8-489d-842f-3e642632b260".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":\x5b{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}\x5d}";
+      kwinrc."Tiling/72539958-fa28-4080-bc73-5163829ef38e/28248fd3-24f8-489d-842f-3e642632b260".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
       kwinrc.Xwayland.Scale = 1;
       plasma-localerc.Formats.LANG = "en_US.UTF-8";
       plasmanotifyrc."Applications/discord".Seen = true;
       plasmanotifyrc."Applications/firefox".Seen = true;
+      spectaclerc.Annotations.annotationToolType = 6;
       spectaclerc.ImageSave.translatedScreenshotsFolder = "Screenshots";
       spectaclerc.VideoSave.translatedScreencastsFolder = "Screencasts";
     };
