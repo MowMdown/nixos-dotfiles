@@ -18,7 +18,15 @@
 
   users.users.ryan = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "video" "plugdev" "storage" "networkmanager" "openrazer" ];
+    extraGroups = [
+      "wheel"
+      "audio"
+      "video"
+      "plugdev"
+      "storage"
+      "networkmanager"
+      "openrazer"
+    ];
   };
   
   environment.etc."1password/custom_allowed_browsers".text = "firefox";
@@ -46,8 +54,6 @@
     lact.enable = true;
     libinput.enable = true;
     openssh.enable = true;
-    pipewire.enable = true;
-    pipewire.pulse.enable = true;
     power-profiles-daemon.enable = true;
     printing.enable = true;
   };
@@ -64,6 +70,15 @@
   };
 
   programs.gpu-screen-recorder-ui.enable = true;
+
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
+  };
 
   programs.steam = {
     enable = true;
