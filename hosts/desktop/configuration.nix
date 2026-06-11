@@ -71,7 +71,7 @@
     amdgpu.overdrive.enable = true;
     openrazer.enable = true;
     bluetooth.enable = true;
-    bluetooth.powerOnBoot = false;
+    bluetooth.powerOnBoot = true;
     firmware = with pkgs; [
       wireless-regdb
     ];
