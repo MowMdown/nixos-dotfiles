@@ -12,13 +12,8 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, plasma-manager, nixvim, cachyos, my-nixpkgs, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nixvim, cachyos, my-nixpkgs, ... }:
     let
       system = "x86_64-linux";
       mkHost = hostModule: nixpkgs.lib.nixosSystem {
@@ -37,7 +32,6 @@
             home-manager.users.ryan = import ./home.nix;
             home-manager.backupFileExtension = "backup";
             home-manager.sharedModules = [
-              plasma-manager.homeModules.plasma-manager
               nixvim.homeModules.nixvim
             ];
             disabledModules = [ "programs/gpu-screen-recorder.nix" ];

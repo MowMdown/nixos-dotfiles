@@ -12,7 +12,6 @@ in
 {
   imports = [
     ./modules/nixvim.nix
-    ./modules/plasma.nix
   ];
 
   home = {
