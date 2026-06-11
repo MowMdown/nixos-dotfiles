@@ -34,6 +34,7 @@ in
     gopls
     kdePackages.kcalc
     kdePackages.filelight
+    mpv
     nextcloud-client
     onlyoffice-desktopeditors
     protonplus
