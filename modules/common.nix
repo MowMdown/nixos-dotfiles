@@ -45,33 +45,30 @@
   environment.systemPackages = with pkgs; [
     aha
     alsa-utils
-    ethtool
-    ghostscript
-    lact
-    openlinkhub
-    openrazer-daemon
-    python3
-    steam-run
-    waypipe
-    wineWow64Packages.staging
-    winetricks
+    delve
     discord
+    ethtool
     fastfetch
     firefox
-    kdePackages.kcalc
+    ghostscript
+    go
+    go
+    gopls
+    gopls
     kdePackages.filelight
+    kdePackages.kcalc
+    lact
     mpv
     nextcloud-client
     onlyoffice-desktopeditors
+    openlinkhub
+    openrazer-daemon
     protonplus
+    python3
+    steam-run
     thunderbird
     tree
     vim
-    wget
-  ];
-
-  environment.systemPackages = with pkgs; [
-    vscodium
     (vscode-with-extensions.override {
       vscode = vscodium;
       vscodeExtensions = with vscode-extensions; [
@@ -79,9 +76,10 @@
         vscodevim.vim
       ];
     })
-    go
-    gopls
-    delve
+    waypipe
+    wget
+    wineWow64Packages.staging
+    winetricks
   ];
 
   services = {
