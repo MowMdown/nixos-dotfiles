@@ -13,6 +13,7 @@
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-amd" ];
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [ ];
     extraModulePackages = [ ];
   };
 

@@ -40,6 +40,8 @@
     ff = "clear && fastfetch";
     nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#$HOSTNAME";
     nix-test = "sudo nixos-rebuild test --flake ~/nixos-dotfiles#$HOSTNAME";
+    nix-update = "nix flake update";
+    nix-clean = "nix-collect-garbage -d";
   };
 
   environment.systemPackages = with pkgs; [
