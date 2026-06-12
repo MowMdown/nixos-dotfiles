@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
-
 {
+  imports = [
+    ./nixvim.nix
+  ];
+
   boot = {
     loader.limine.enable = true;
     loader.limine.maxGenerations = 3;
@@ -27,9 +30,18 @@
       "openrazer"
     ];
   };
-  
-  environment.etc."1password/custom_allowed_browsers".text = "firefox";
-  environment.etc."1password/custom_allowed_browsers".mode = "0755";
+
+  environment.etc = { 
+    "1password/custom_allowed_browsers".text = "firefox";
+    "1password/custom_allowed_browsers".mode = "0755";
+  };
+
+  environment.shellAliases = {
+    ff = "clear && fastfetch";
+    nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#$HOSTNAME";
+    nix-test = "sudo nixos-rebuild test --flake ~/nixos-dotfiles#$HOSTNAME";
+  };
+
   environment.systemPackages = with pkgs; [
     aha
     alsa-utils
@@ -43,6 +55,33 @@
     waypipe
     wineWow64Packages.staging
     winetricks
+    discord
+    fastfetch
+    firefox
+    kdePackages.kcalc
+    kdePackages.filelight
+    mpv
+    nextcloud-client
+    onlyoffice-desktopeditors
+    protonplus
+    thunderbird
+    tree
+    vim
+    wget
+  ];
+
+  environment.systemPackages = with pkgs; [
+    vscodium
+    (vscode-with-extensions.override {
+      vscode = vscodium;
+      vscodeExtensions = with vscode-extensions; [
+        golang.go
+        vscodevim.vim
+      ];
+    })
+    go
+    gopls
+    delve
   ];
 
   services = {
@@ -63,20 +102,25 @@
     openFirewall = true;
   };
 
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ "ryan" ];
-  };
-
-  programs.gpu-screen-recorder-ui.enable = true;
-
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
     wireplumber.enable = true;
+  };
+
+  security.rtkit.enable = true;
+
+  programs = {
+    gpu-screen-recorder-ui.enable = true;
+    git.enable = true;
+    bash.interactiveShellInit = builtins.readFile ../config/xdg-trash-cli;
+  };
+
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "ryan" ];
   };
 
   programs.steam = {
