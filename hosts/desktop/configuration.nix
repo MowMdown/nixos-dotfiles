@@ -80,5 +80,10 @@
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nix.settings.system-features = [ "gccarch-znver3" "gccarch-x86-64-v3" "gccarch-x86-64-v2" "gccarch-x86-64" ];
+  nixpkgs.localSystem = {
+    gcc.arch = "x86-64-v3";
+    gcc.tune = "znver3";
+    system = "x86_64-linux";
+  };
 }
