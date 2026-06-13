@@ -81,9 +81,11 @@
   };
 
   nix.settings.system-features = [ "gccarch-znver3" "gccarch-x86-64-v3" "gccarch-x86-64-v2" "gccarch-x86-64" ];
-  nixpkgs.localSystem = {
-    gcc.arch = "x86-64-v3";
-    gcc.tune = "znver3";
-    system = "x86_64-linux";
-  };
+  nix.settings.cores = 16;
+  nix.settings.max-jobs = 12;
+#  nixpkgs.localSystem = {
+#    gcc.arch = "x86-64-v3";
+#    gcc.tune = "generic";
+#    system = "x86_64-linux";
+#  };
 }
