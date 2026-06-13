@@ -54,8 +54,6 @@
     firefox
     ghostscript
     go
-    go
-    gopls
     gopls
     kdePackages.filelight
     kdePackages.kcalc
