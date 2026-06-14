@@ -1,16 +1,5 @@
 { config, lib, pkgs, modulesPath, ... }:
 
-let
-  pkgsOptimized = import pkgs.path {
-    inherit (pkgs) overlays;
-    config = pkgs.config;
-    localSystem = {
-      gcc.arch = "x86-64-v3";
-      gcc.tune = "znver3";
-      system = "x86_64-linux";
-    };
-  };
-in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -23,7 +12,7 @@ in
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
     initrd.kernelModules = [ "amdgpu" ];
     kernelModules = [ "kvm-amd" ];
-    kernelPackages = pkgsOptimized.cachyosKernels.linuxPackages-cachyos-latest;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
     kernelParams = [
       "resume=UUID=bcf7f4cf-647f-46af-835a-7ae162a1972b"
     ];
@@ -91,5 +80,4 @@ in
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  nix.settings.system-features = [ "gccarch-znver3" "gccarch-x86-64-v3" "gccarch-x86-64-v2" "gccarch-x86-64" ];
 }
