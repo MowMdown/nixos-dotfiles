@@ -3,7 +3,7 @@
 let
   pkgsOptimized = import pkgs.path {
     inherit (pkgs) overlays;
-    config = pkgs.config
+    config = pkgs.config;
     localSystem = {
       gcc.arch = "x86-64-v3";
       gcc.tune = "znver3";
@@ -89,7 +89,7 @@ in
     graphics.enable32Bit = true;
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
- 
+  nix.settings.system-features = [ "gccarch-znver3" "gccarch-x86-64-v3" "gccarch-x86-64-v2" "gccarch-x86-64" ];
   nix.settings.cores = 16;
   nix.settings.max-jobs = 16;
 }
