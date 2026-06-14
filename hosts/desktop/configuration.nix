@@ -1,5 +1,16 @@
 { config, lib, pkgs, modulesPath, ... }:
 
+let
+  pkgsOptimized = import pkgs.path {
+    inherit (pkgs) system overlays;
+    config = pkgs.config // { allowUnfree = true; };
+    localSystem = {
+      gcc.arch = "x86-64-v3";
+      gcc.tune = "znver3";
+      system = "x86_64-linux";
+    };
+  };
+in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -7,12 +18,12 @@
     ../../modules/common.nix
     ../../modules/upgrade.nix
   ];
-
+  
   boot = {
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
     initrd.kernelModules = [ "amdgpu" ];
     kernelModules = [ "kvm-amd" ];
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+    kernelPackages = pkgsOptimized.cachyosKernels.linuxPackages-cachyos-latest;
     kernelParams = [
       "resume=UUID=bcf7f4cf-647f-46af-835a-7ae162a1972b"
     ];
@@ -25,7 +36,6 @@
       protocol: efi
       path: guid(4e4d4d22-81e9-4d8a-9b07-528d0bf1aa59):/EFI/Microsoft/Boot/bootmgfw.efi
       comment: Windows 11 Pro
-
       /Gentoo Linux
       protocol: linux
       kernel_path: boot():/kernel-7.0.10-gentoo-r1-custom
@@ -35,7 +45,7 @@
       comment: Linux Kernel 7.0.10-r1
     '';
   };
-
+  
   networking = {
     hostName = "desktop";
     usePredictableInterfaceNames = false;
@@ -44,12 +54,12 @@
     nftables.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 53317 ]; # LocalSend
-      allowedUDPPorts = [ 53317 config.services.tailscale.port ]; # LocalSend, Tailscale
+      allowedTCPPorts = [ 53317 ];
+      allowedUDPPorts = [ 53317 config.services.tailscale.port ];
       trustedInterfaces = [ "tailscale0" ];
     };
   };
-
+  
   services = {
     tailscale.enable = true;
     networkd-dispatcher = {
@@ -62,11 +72,11 @@
     xserver.enable = true;
     xserver.videoDrivers = [ "amdgpu" ];
   };
-
+  
   systemd.services.tailscaled.serviceConfig.Environment = [
     "TS_DEBUG_FIREWALL_MODE=nftables"
   ];
-
+  
   hardware = {
     amdgpu.overdrive.enable = true;
     openrazer.enable = true;
@@ -79,14 +89,7 @@
     graphics.enable32Bit = true;
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
-
-#  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  nix.settings.system-features = [ "gccarch-znver3" "gccarch-x86-64-v3" "gccarch-x86-64-v2" "gccarch-x86-64" ];
+ 
   nix.settings.cores = 16;
   nix.settings.max-jobs = 16;
-  nixpkgs.localSystem = {
-    gcc.arch = "x86-64-v3";
-    gcc.tune = "znver3";
-    system = "x86_64-linux";
-  };
 }
