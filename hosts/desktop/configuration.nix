@@ -2,8 +2,8 @@
 
 let
   pkgsOptimized = import pkgs.path {
-    inherit (pkgs) system overlays;
-    config = pkgs.config // { allowUnfree = true; };
+    inherit (pkgs) overlays;
+    config = pkgs.config
     localSystem = {
       gcc.arch = "x86-64-v3";
       gcc.tune = "znver3";
