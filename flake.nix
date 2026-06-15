@@ -3,7 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
-    cachyos.url = "github:xddxdd/nix-cachyos-kernel";
+    cachyos.url = "github:xddxdd/nix-cachyos-kernel/release";
     my-nixpkgs = {
       url = "git+https://git.plexraid.stream/mowmdown/nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";

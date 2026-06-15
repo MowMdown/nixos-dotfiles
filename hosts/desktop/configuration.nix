@@ -12,7 +12,7 @@
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
     initrd.kernelModules = [ "amdgpu" ];
     kernelModules = [ "kvm-amd" ];
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
     kernelParams = [
       "resume=UUID=bcf7f4cf-647f-46af-835a-7ae162a1972b"
     ];
