@@ -24,11 +24,11 @@
     loader.limine.extraEntries = ''
       /Gentoo Linux
       protocol: linux
-      kernel_path: boot():/kernel-7.0.11-gentoo-dist
+      kernel_path: boot():/kernel-7.0.12-gentoo-dist-bin
       module_path: boot():/amd-uc.img
-      module_path: boot():/initramfs-7.0.11-gentoo-dist.img
+      module_path: boot():/initramfs-7.0.12-gentoo-dist-bin.img
       cmdline: root=LABEL=ROOT rootflags=subvol=@gentoo rw nowatchdog zswap.enabled=1
-      comment: Linux Kernel 7.0.11
+      comment: Linux Kernel 7.0.12
     '';
   };
 
