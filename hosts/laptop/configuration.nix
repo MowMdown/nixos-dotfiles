@@ -12,7 +12,7 @@
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-amd" ];
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "resume=UUID=1dd2e967-e85d-43cd-a61b-e48ffa8ff450"
       "resume_offset=29169775"
@@ -20,15 +20,6 @@
     extraModulePackages = [ ];
     extraModprobeConfig = ''
       options cfg80211 ieee80211_regdom="US"
-    '';
-    loader.limine.extraEntries = ''
-      /Gentoo Linux
-      protocol: linux
-      kernel_path: boot():/kernel-7.0.12-gentoo-dist-bin
-      module_path: boot():/amd-uc.img
-      module_path: boot():/initramfs-7.0.12-gentoo-dist-bin.img
-      cmdline: root=LABEL=ROOT rootflags=subvol=@gentoo rw nowatchdog zswap.enabled=1
-      comment: Linux Kernel 7.0.12
     '';
   };
 
