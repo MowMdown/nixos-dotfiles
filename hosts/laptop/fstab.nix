@@ -9,12 +9,12 @@ in
     "/" = {
       device = nvme0n1p3;
       fsType = "btrfs";
-      options = [ "subvol=/@nixos" ] ++ btrfsOpts;
+      options = [ "subvol=/@" ] ++ btrfsOpts;
     };
     "/nix" = {
       device = nvme0n1p3;
       fsType = "btrfs";
-      options = [ "subvol=/@nix-store" ] ++ btrfsOpts;
+      options = [ "subvol=/@nix" ] ++ btrfsOpts;
     };
     "/boot" = {
       device = nvme0n1p1;
