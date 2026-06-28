@@ -36,6 +36,7 @@ in
       fsType = "btrfs";
       options = [ "subvol=/@log" ] ++ btrfsOpts;
     };
+  };
 
   swapDevices = [{ device = nvme0n1p2; }];
 }
