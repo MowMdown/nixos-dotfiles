@@ -14,8 +14,8 @@
     kernelModules = [ "kvm-amd" ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
-      "resume=UUID=1dd2e967-e85d-43cd-a61b-e48ffa8ff450"
-      "resume_offset=29169775"
+      #"resume=UUID="
+      #"resume_offset="
     ];
     extraModulePackages = [ ];
     extraModprobeConfig = ''
