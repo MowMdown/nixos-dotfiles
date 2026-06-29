@@ -3,7 +3,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ./fstab.nix
+    ./disko.nix
     ../../modules/common.nix
     ../../modules/upgrade.nix
   ];
@@ -14,7 +14,7 @@
     kernelModules = [ "kvm-amd" ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
-      "resume=UUID=a0520dea-e69d-491f-9177-6bd559f1f567"
+      "resume=LABEL=SWAP"
     ];
     extraModulePackages = [ ];
     extraModprobeConfig = ''
