@@ -1,8 +1,13 @@
 let
-  btrfsOpts = [ "compress=zstd:3" "noatime" "discard=async" "space_cache=v2" ];
-  mkSubvol = subvol: mountpoint: {
+  mkSubvol = { subvol, mountpoint, extraOpts ? [] }: {
     inherit mountpoint;
-    mountOptions = [ "subvol=/${subvol}" ] ++ btrfsOpts;
+    mountOptions = [
+      "subvol=/${subvol}"
+      "compress=zstd:3"
+      "noatime"
+      "discard=async"
+      "space_cache=v2"
+    ] ++ extraOpts;
   };
 in
 {
@@ -34,12 +39,12 @@ in
               type = "btrfs";
               extraArgs = [ "-L ROOT" "-d raid0" "-m raid0" "/dev/nvme1n1p2" "-f" ];
               subvolumes = {
-                "@nixos"     = mkSubvol "@nixos" "/";
-                "@nix-store" = mkSubvol "@nix-store" "/nix";
-                "@home"      = mkSubvol "@home" "/home";
-                "@steam"     = mkSubvol "@steam" "/home/ryan/.local/share/Steam";
-                "@tmp"       = mkSubvol "@tmp" "/var/tmp";
-                "@log"       = mkSubvol "@log" "/var/log";
+                "@nixos"     = mkSubvol { subvol = "@nixos";     mountpoint = "/";     }; #extraOpts = [ ]; };
+                "@nix-store" = mkSubvol { subvol = "@nix-store"; mountpoint = "/nix";  }; #extraOpts = [ ]; };
+                "@home"      = mkSubvol { subvol = "@home";      mountpoint = "/home"; }; #extraOpts = [ ]; };
+                "@steam"     = mkSubvol { subvol = "@steam";     mountpoint = "/home/ryan/.local/share/Steam"; }; #extraOpts = [ ]; };
+                "@tmp"       = mkSubvol { subvol = "@tmp";       mountpoint = "/var/tmp"; }; #extraOpts = [ ]; };
+                "@log"       = mkSubvol { subvol = "@log";       mountpoint = "/var/log"; }; #extraOpts = [ ]; };
               };
             };
           };
