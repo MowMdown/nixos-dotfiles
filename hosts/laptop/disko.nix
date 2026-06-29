@@ -35,11 +35,11 @@ in
             extraArgs = [ "-L SWAP" ];
           };
         };
-        NIX = {
+        ROOT = {
           size = "100%";
           content = {
             type = "btrfs";
-            extraArgs = [ "-L NIX" "-f" ];
+            extraArgs = [ "-L ROOT" "-f" ];
             subvolumes = {
               "@"     = mkSubvol "@"    "/";
               "@nix"  = mkSubvol "@nix" "/nix";

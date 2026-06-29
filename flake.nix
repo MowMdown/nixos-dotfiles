@@ -20,7 +20,7 @@
         inherit system;
         modules = [
           hostModule
-          disko.nixosMOdules.disko
+          disko.nixosModules.disko
           my-nixpkgs.nixosModules.my-nixpkgs
           nixvim.nixosModules.nixvim
           {

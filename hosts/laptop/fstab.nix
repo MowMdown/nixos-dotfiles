@@ -1,7 +1,7 @@
 let
-  nvme0n1p1  = "/dev/disk/by-label/EFI";
-  nvme0n1p2 = "/dev/disk/by-label/SWAP";
-  nvme0n1p3  = "/dev/disk/by-label/NIX";
+  nvme0n1p1  = "/dev/disk/by-uuid/E8A3-3B13";
+  nvme0n1p2 = "/dev/disk/by-uuid/a0520dea-e69d-491f-9177-6bd559f1f567";
+  nvme0n1p3  = "/dev/disk/by-uuid/41c61953-53d0-49b0-b928-409be7629a6a";
   btrfsOpts = [ "compress=zstd:3" "noatime" "discard=async" "space_cache=v2" ];
 in
 {
