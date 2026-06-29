@@ -15,7 +15,7 @@
     kernelModules = [ "kvm-amd" ];
     kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
     kernelParams = [
-      "resume=UUID=bcf7f4cf-647f-46af-835a-7ae162a1972b"
+      "resume=LABEL=SWAP"
     ];
     extraModprobeConfig = ''
       options cfg80211 ieee80211_regdom="US"
