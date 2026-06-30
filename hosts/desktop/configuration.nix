@@ -21,7 +21,6 @@
       "zswap.max_pool_percent=50"
     ];
     kernel.sysctl = { "vm.swappiness" = 100; };
-
     extraModprobeConfig = ''
       options cfg80211 ieee80211_regdom="US"
     '';
