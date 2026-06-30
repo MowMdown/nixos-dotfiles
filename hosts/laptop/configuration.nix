@@ -11,11 +11,15 @@
   boot = {
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
     initrd.kernelModules = [ ];
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = [ "kvm-amd" "ntsync" ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "resume=LABEL=SWAP"
+      "zswap.enabled=1"
+      "zswap.compressor=zstd"
+      "zswap.max_pool_percent=50"
     ];
+    kernel.sysctl = { "vm.swappiness" = 100; };
     extraModulePackages = [ ];
     extraModprobeConfig = ''
       options cfg80211 ieee80211_regdom="US"
