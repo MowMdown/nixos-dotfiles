@@ -8,13 +8,6 @@
     loader.limine.enable = true;
     loader.limine.maxGenerations = 3;
     loader.efi.canTouchEfiVariables = true;
-    kernel.sysctl = { "vm.swappiness" = 100; };
-    kernelModules = [ "ntsync" ];
-    kernelParams = [
-      "zswap.enabled=1"
-      "zswap.compressor=zstd"
-      "zswap.max_pool_percent=50"
-    ];
   };
 
   time.timeZone = "America/New_York";
