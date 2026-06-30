@@ -4,10 +4,11 @@
     ./nixvim.nix
   ];
 
-  boot = {
-    loader.limine.enable = true;
-    loader.limine.maxGenerations = 3;
-    loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    limine.enable = true;
+    limine.maxGenerations = 3;
+    limine.enableEditor = true;
+    efi.canTouchEfiVariables = true;
   };
 
   time.timeZone = "America/New_York";
