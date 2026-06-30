@@ -12,11 +12,16 @@
   boot = {
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
     initrd.kernelModules = [ "amdgpu" ];
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = [ "kvm-amd" "ntsync" ];
     kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
     kernelParams = [
       "resume=LABEL=SWAP"
+      "zswap.enabled=1"
+      "zswap.compressor=zstd"
+      "zswap.max_pool_percent=50"
     ];
+    kernel.sysctl = { "vm.swappiness" = 100; };
+
     extraModprobeConfig = ''
       options cfg80211 ieee80211_regdom="US"
     '';
