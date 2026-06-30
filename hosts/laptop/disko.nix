@@ -2,7 +2,6 @@ let
   mkSubvol = { subvol, mountpoint, extraOpts ? [] }: {
     inherit mountpoint;
     mountOptions = [
-      "subvol=/${subvol}"
       "compress=zstd:3"
       "noatime"
       "discard=async"
