@@ -66,7 +66,6 @@ in
           };
           ROOT_MEMBER = {
             size = "100%";
-            content = { type = "none"; };
           };
         };
       };

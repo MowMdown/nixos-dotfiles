@@ -42,6 +42,7 @@
   environment.systemPackages = with pkgs; [
     aha
     alsa-utils
+    btrfs-assistant
     delve
     discord
     ethtool
