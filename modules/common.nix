@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 {
-  imports = [
-    ./nixvim.nix
-  ];
+  imports = [ ];
 
   boot.loader = {
     limine.enable = true;
