@@ -51,6 +51,9 @@
     gopls
     kdePackages.filelight
     kdePackages.kcalc
+    kdePackages.kio
+    kdePackages.kio-fuse
+    kdePackages.kio-extras
     lact
     mpv
     nextcloud-client
