@@ -5,7 +5,6 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     ./disko.nix
     ../../modules/common.nix
-    ../../modules/upgrade.nix
   ];
 
   boot = {

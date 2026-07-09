@@ -5,7 +5,6 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     ./fstab.nix
     ../../modules/common.nix
-    ../../modules/upgrade.nix
   ];
 
   boot = {
