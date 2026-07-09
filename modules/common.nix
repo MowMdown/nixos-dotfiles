@@ -65,6 +65,7 @@
     steam-run
     thunderbird
     tree
+    unzip
     vim
     (vscode-with-extensions.override {
       vscode = vscodium;
