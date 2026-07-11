@@ -25,7 +25,7 @@
           nixvim.nixosModules.nixvim
           {
             nixpkgs.overlays = [
-              cachyos.overlays.default
+              cachyos.overlays.pinned
               my-nixpkgs.overlays.default
             ];
             disabledModules = [ "programs/gpu-screen-recorder.nix" ];
