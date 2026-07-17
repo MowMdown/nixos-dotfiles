@@ -11,7 +11,7 @@
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "uas" "usbhid" "sd_mod" "sdhci_pci" ];
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-amd" "ntsync" ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
     kernelParams = [
       "resume=LABEL=SWAP"
       "zswap.enabled=1"
@@ -23,6 +23,11 @@
     extraModprobeConfig = ''
       options cfg80211 ieee80211_regdom="US"
     '';
+  };
+
+  nix.settings = {
+    substituters = [ "https://attic.xuyh0120.win/lantian" ];
+    trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
   };
 
   networking = {

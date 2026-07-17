@@ -138,11 +138,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781192444,
-        "narHash": "sha256-DB6EChU3VqmeZOfv3dXPa9fEGrjB+zF/6o2AJWOtKlQ=",
+        "lastModified": 1784255177,
+        "narHash": "sha256-9Mm/d9IaChVOmTnwEaKMNQufg6ZWQ8yNIN55PsSCSSc=",
         "ref": "refs/heads/main",
-        "rev": "37df89df91371cc8dbf59677f24f664718595fe4",
-        "revCount": 88,
+        "rev": "eeea84aa6d4eaf69e33ba41b57a7e4a27895bf26",
+        "revCount": 90,
         "type": "git",
         "url": "https://git.plexraid.stream/mowmdown/nixpkgs"
       },
@@ -184,11 +184,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1783703440,
-        "narHash": "sha256-O3/YajjWo001VUIgD8BwaRdSNLUFe7nZ1qV5TwhRBcw=",
+        "lastModified": 1784160687,
+        "narHash": "sha256-iYL/bixrb6FlHFu/gIuBYzq6c6lM5AAXsXNSWXtIgQc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8f0500b9660505dc3cb647775fe9a978a74b5283",
+        "rev": "4382ed2b7a6839d4280a9b386db49cbc5907414d",
         "type": "github"
       },
       "original": {
