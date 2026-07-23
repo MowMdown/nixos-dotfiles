@@ -24,11 +24,6 @@
     ];
   };
 
-  environment.etc = { 
-    "1password/custom_allowed_browsers".text = "firefox";
-    "1password/custom_allowed_browsers".mode = "0755";
-  };
-
   environment.shellAliases = {
     ff = "clear && fastfetch";
     nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#$HOSTNAME";
@@ -40,6 +35,7 @@
   environment.systemPackages = with pkgs; [
     aha
     alsa-utils
+    bitwarden-desktop
     btrfs-assistant
     delve
     discord
@@ -76,7 +72,7 @@
     })
     waypipe
     wget
-    wineWow64Packages.staging
+    wineWow64Packages.waylandFull
     winetricks
   ];
 
@@ -112,11 +108,6 @@
     gpu-screen-recorder-ui.enable = true;
     git.enable = true;
     bash.interactiveShellInit = builtins.readFile ../config/xdg-trash-cli;
-  };
-
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ "ryan" ];
   };
 
   programs.steam = {
