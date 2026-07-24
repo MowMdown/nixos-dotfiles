@@ -35,7 +35,6 @@
   environment.systemPackages = with pkgs; [
     aha
     alsa-utils
-    bitwarden-desktop
     btrfs-assistant
     delve
     discord
@@ -102,12 +101,21 @@
     wireplumber.enable = true;
   };
 
+  services.udev.packages = [
+    pkgs.yubikey-personalization
+  ];
+
   security.rtkit.enable = true;
 
   programs = {
     gpu-screen-recorder-ui.enable = true;
     git.enable = true;
     bash.interactiveShellInit = builtins.readFile ../config/xdg-trash-cli;
+  };
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
   };
 
   programs.steam = {
