@@ -24,10 +24,10 @@
     ];
   };
 
-  environment.etc = {
-    "1password/custom_allowed_browsers".text = "firefox";
-    "1password/custom_allowed_browsers".mode = "0755";
-  };
+#  environment.etc = {
+#    "1password/custom_allowed_browsers".text = "firefox";
+#    "1password/custom_allowed_browsers".mode = "0755";
+#  };
 
   environment.shellAliases = {
     ff = "clear && fastfetch";
@@ -118,10 +118,10 @@
     bash.interactiveShellInit = builtins.readFile ../config/xdg-trash-cli;
   };
 
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ "ryan" ];
-  };
+#  programs._1password-gui = {
+#    enable = true;
+#    polkitPolicyOwners = [ "ryan" ];
+#  };
 
   programs.gnupg.agent = {
     enable = true;
