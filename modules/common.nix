@@ -24,11 +24,6 @@
     ];
   };
 
-#  environment.etc = {
-#    "1password/custom_allowed_browsers".text = "firefox";
-#    "1password/custom_allowed_browsers".mode = "0755";
-#  };
-
   environment.shellAliases = {
     ff = "clear && fastfetch";
     nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#$HOSTNAME";
@@ -117,11 +112,6 @@
     git.enable = true;
     bash.interactiveShellInit = builtins.readFile ../config/xdg-trash-cli;
   };
-
-#  programs._1password-gui = {
-#    enable = true;
-#    polkitPolicyOwners = [ "ryan" ];
-#  };
 
   programs.gnupg.agent = {
     enable = true;

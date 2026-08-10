@@ -27,11 +27,11 @@
     loader.limine.extraEntries = ''
       /Gentoo Linux
         protocol: linux
-        kernel_path: boot():/kernel-7.1.7-gentoo-dist-bin
+        kernel_path: boot():/kernel-6.18.41-gentoo-dist-bin
         module_path: boot():/amd-uc.img
-        module_path: boot():/initramfs-7.1.7-gentoo-dist-bin.img
+        module_path: boot():/initramfs-6.18.41-gentoo-dist-bin.img
         cmdline: root=LABEL=ARCH rootflags=subvol=@gentoo rw nowatchdog amdgpu.ppfeaturemask=0xffffffff zswap.enabled=1 zswap.compressor=lz4
-        comment: Linux Kernel 7.1.7
+        comment: Linux Kernel 6.18.41
       /Windows 11
         protocol: efi
         path: guid(4e4d4d22-81e9-4d8a-9b07-528d0bf1aa59):/EFI/Microsoft/Boot/bootmgfw.efi
