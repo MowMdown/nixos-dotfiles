@@ -108,7 +108,7 @@
   security.rtkit.enable = true;
 
   programs = {
-    gpu-screen-recorder-ui.enable = true;
+    #gpu-screen-recorder-ui.enable = true;
     git.enable = true;
     bash.interactiveShellInit = builtins.readFile ../config/xdg-trash-cli;
   };
